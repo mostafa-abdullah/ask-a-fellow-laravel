@@ -6,5 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
-    //
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function setUnread()
+    {
+        $this->seen = false;
+        $this->save();
+    }
+
+    public function setRead()
+    {
+        $this->seen = true;
+        $this->save();
+    }
+
 }
