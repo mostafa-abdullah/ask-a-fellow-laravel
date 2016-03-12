@@ -30,6 +30,8 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     });
 
+    Route::get('/user/{id}','UserController@show');
+
     //
 });
 

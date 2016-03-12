@@ -3,9 +3,9 @@
     <title>
         Ask a fellow
     </title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src = "js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src = "js/bootstrap.min.js" ></script>
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <script type="text/javascript" src = "{{asset('js/jquery-1.11.2.min.js')}}"></script>
+    <script type="text/javascript" src = "{{asset('js/bootstrap.min.js')}}" ></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
