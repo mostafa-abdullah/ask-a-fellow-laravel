@@ -46,7 +46,7 @@ class CreateInitialTables extends Migration
             $table->integer('role');
             $table->integer('contribution');
             $table->integer('semester');
-            $table->integer('major_id')->unsigned();
+            $table->integer('major_id')->unsigned()->nullable();
             $table->text('bio');
             $table->date('birth_date');
             $table->foreign('major_id')->references('id')->on('majors')->onDelete('CASCADE');
@@ -68,8 +68,8 @@ class CreateInitialTables extends Migration
             $table->integer('asker_id')->unsigned();
             $table->integer('course_id')->unsigned()->index();
             $table->timestamps();
-            $table->foreign('asker_id')->references('id')->on('users')->onDelete('RESTRICT');
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('CASCADE')->onUpdate('RESTRICT');
+            $table->foreign('asker_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('CASCADE')->onUpdate('cascade');
 
         });
         Schema::create('answers', function (Blueprint $table) {
@@ -78,7 +78,7 @@ class CreateInitialTables extends Migration
             $table->integer('question_id')->unsigned();
             $table->integer('responder_id')->unsigned();
             $table->timestamps();
-            $table->foreign('responder_id')->references('id')->on('users')->onDelete('no action');
+            $table->foreign('responder_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('CASCADE');
 
         });
@@ -88,7 +88,7 @@ class CreateInitialTables extends Migration
             $table->integer('type')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('question_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('CASCADE');
         });
         Schema::create('answer_votes', function (Blueprint $table) {
@@ -97,7 +97,7 @@ class CreateInitialTables extends Migration
             $table->integer('type')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('answer_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('answer_id')->references('id')->on('answers')->onDelete('CASCADE');
         });
         Schema::create('notifications', function (Blueprint $table) {
@@ -107,7 +107,7 @@ class CreateInitialTables extends Migration
             $table->text('notification_description');
             $table->text('notification_link');
             $table->boolean('seen');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +24,18 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
+    Route::get('/', function () {
+        if(Auth::user())
+            return redirect('/home');
+        return view('welcome');
+    });
+
+    Route::get('/user/update','UserController@updateInfoPage');
+    Route::post('/user/update','UserController@updateInfo');
+    Route::get('/user/{id}','UserController@show');
+    Route::get('/user/{id}/questions','UserController@show');
+    Route::get('/user/{id}/answers','UserController@showProfileAnswers');
+
     //
 });
 
