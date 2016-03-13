@@ -1,6 +1,14 @@
 @extends('layouts.app');
 @section('content')
+
     <div class=info_section>
+        @if (session('updated'))
+            <div class="flash-message">
+                <div class="alert alert-info" style="background-color: #FFAF6C; border-color: #FF6B2D; color:#AA5B0B">
+                    {{session('updated')}}
+                </div>
+            </div>
+        @endif
         <div class="profile_picture">
             @if($user->profile_picture)
                 <img src="{{asset($user->profile_picture)}}" style="">
@@ -11,39 +19,16 @@
         </div>
         <h1>{{$user->first_name.' '.$user->last_name}}</h1>
         <a href="#" style="color:#0057A2">{{$user->email}}</a>
-        <p style="font-size: 20px;">{{$user->semester?'Semester '.$user->semester:''}} {{$user->major?$user->semester:''}}</p>
+        <p style="font-size: 20px;">{{$user->semester?'Semester '.$user->semester:''}}<br> {{$user->major?$user->major->major:''}}</p>
         <p>{{$user->bio}}</p>
+        @if(Auth::user() && Auth::user()->id == $user->id)
+             <a class="btn btn-success " href="{{url('user/update')}}">Update info</a>
+        @endif
+
     </div>
     <div class="questions_answers">
-        <nav id="switch" class="center-block cl-effect-21" style="text-align:center;width: 100%; height: 70px;">
-            <a id="loginSwitch" style="margin-right:3%; color: #CA6A1B;  margin-left:5%; margin-bottom:15px; border-bottom:1px solid #CA6A1B;" href="#questions">Questions</a>
-            <a id="registerSwitch" style="opacity:0.5;margin-left:3%;color: #CA6A1B;  margin-right:5%; border-bottom:1px solid #CA6A1B;" href="#answers">Answers</a>
-        </nav>
-        <h3>Mostafa asked {{count($user->questions()->get())}} question(s).</h3>
-        <br>
-        @foreach($user->questions()->get() as $question)
-            <div class="media">
-                <div style="text-align: center" class="media-left">
-                    <a href="#">
-                        <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
-                    </a>
-                    @if($question->votes > 0)
-                        <span style="color:green;">{{$question->votes}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
-                    @elseif($question->votes == 0)
-                        <span style="">{{$question->votes}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
-                    @else
-                        <span style="color:red;">{{$question->votes}} <span class="glyphicon glyphicon-thumbs-down"></span></span>
-                    @endif
 
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">{{substr($question->question,0,50).'...'}}</h4>
-                    {{substr($question->question,0,300).'....'}}<a href="#">See more.</a>
-                    <p style="font-weight: bold; font-style: italic; font-size: 13px;">{{ date("F j, Y, g:i a",strtotime($question->created_at)) }} </p>
-                </div>
-
-            </div>
-        @endforeach
+       @yield('question_answer_section')
 
 
     </div>
@@ -53,6 +38,10 @@
     <style>
         /* Profile styling */
 
+        @font-face {
+            font-family: ubuntu;
+            src: url('{{asset('fonts/ubuntu.ttf')}}');
+        }
         #main_content{
 
             padding-top: 0px !important;
@@ -68,7 +57,7 @@
 
         .info_section
         {
-            height: 400px;
+            /*height: 400px;*/
             background-color: #FF953D;
             text-align: center;
             padding: 40px;
@@ -92,7 +81,7 @@
         {
             font-size: 40px;
             color: #621708;
-            font-family: 'ubuntu';
+            font-family: 'ubuntu', sans-serif;
         }
         .info_section p{
 
@@ -101,6 +90,7 @@
         .questions_answers{
             padding: 50px;
             padding-left: 100px;
+            padding-right: 100px;
             margin-top: 20px;
         }
         .questions_answers .media

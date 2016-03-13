@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/formInput.css" rel="stylesheet">
     <link href="css/textAnimation.css" rel="stylesheet">
@@ -422,7 +423,7 @@
     }
 
 
-    @media (max-width: 600px) {
+    @media (max-width: 500px) {
         .flexsearch h1
         {
             font-size: 16px;

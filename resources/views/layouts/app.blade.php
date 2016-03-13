@@ -3,6 +3,7 @@
     <title>
         Ask a fellow
     </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <script type="text/javascript" src = "{{asset('js/jquery-1.11.2.min.js')}}"></script>
     <script type="text/javascript" src = "{{asset('js/bootstrap.min.js')}}" ></script>
@@ -126,6 +127,8 @@
 
         padding-top: 100px;
         padding-bottom: 50px;
+
+
         /*height: 800px;*/
         width: 80%;
         background-color: #F7E8D6;
@@ -134,4 +137,12 @@
         box-shadow: 0px 5px 10px -1px #888888;
         z-index: 1;
     }
+    @media (min-width:777px) and (max-width: 1000px) {
+        .navbar ul.navbar-left
+        {
+            display: none;
+        }
+    }
+
+
 </style>
