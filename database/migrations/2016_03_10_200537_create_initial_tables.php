@@ -49,7 +49,7 @@ class CreateInitialTables extends Migration
             $table->integer('major_id')->unsigned()->nullable();
             $table->text('bio');
             $table->date('birth_date');
-            $table->foreign('major_id')->references('id')->on('majors')->onDelete('CASCADE');
+            $table->foreign('major_id')->references('id')->on('majors')->onDelete('SET NULL');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -61,6 +61,7 @@ class CreateInitialTables extends Migration
             $table->timestamps();
             $table->foreign('major_id')->references('id')->on('majors')->onDelete('CASCADE');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('CASCADE');
+            $table->unique(array('major_id', 'course_id'));
         });
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
@@ -90,6 +91,7 @@ class CreateInitialTables extends Migration
             $table->integer('question_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('CASCADE');
+            $table->unique(array('user_id', 'question_id'));
         });
         Schema::create('answer_votes', function (Blueprint $table) {
             $table->increments('id');
@@ -99,6 +101,7 @@ class CreateInitialTables extends Migration
             $table->integer('answer_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('answer_id')->references('id')->on('answers')->onDelete('CASCADE');
+            $table->unique(array('user_id', 'answer_id'));
         });
         Schema::create('notifications', function (Blueprint $table) {
             $table->increments('id');

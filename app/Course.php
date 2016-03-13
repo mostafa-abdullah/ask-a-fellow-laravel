@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     //
-    public function major()
+    public function majors()
     {
         return $this->belongsToMany('App\Major');
     }
