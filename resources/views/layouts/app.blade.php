@@ -40,11 +40,30 @@
                 <button type="submit" id="search_button" class="btn btn-default">Search</button>
             </form>
 
+            @if(Auth::user())
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="background-color: #FFAF6C;">
+                            <li><a href="{{url('user/'.Auth::user()->id)}}">Profile</a></li>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
-            </ul>
+                            @if(Auth::user()->role == 0)
+                                <li><a href="#">Send Feedback</a></li>
+                            @else
+                                <li><a href="#">View Feedbacks</a></li>
+                                <li><a href="{{url('/admin')}}">Admin Roles</a></li>
+                            @endif
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{url('/logout')}}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            @else
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Register</a></li>
+                </ul>
+            @endif
 
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
