@@ -12,16 +12,9 @@ class Course extends Model
         return $this->belongsToMany('App\Major');
     }
 
-    public function questions($semester = null)
+    public function questions()
     {
-        if($semester)
-        {
-            return $this->hasMany('App\Question')->where('semester','=',$semester)->get();
-        }
-        else
-        {
-            return $this->hasMany('App\Question');
-        }
+        return $this->hasMany('App\Question');
     }
 
     public function subscribed_users()

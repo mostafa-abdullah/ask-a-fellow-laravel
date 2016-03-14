@@ -50,6 +50,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/admin/update_major/{id}','AdminController@update_major_page');
     Route::post('/admin/update_course/{id}','AdminController@update_course');
     Route::post('/admin/update_major/{id}','AdminController@update_major');
+
+
+    Route::get('/browse','AppController@browse');
+    Route::get('/list_courses/{major}/{semester}','AjaxController@getCourses');
     //
 });
 
