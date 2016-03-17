@@ -151,7 +151,7 @@ class User extends Authenticatable
     public function vote_on_question($question_id,$type)
     {
         $questionVote = new QuestionVote();
-        $questionVote->user_id = $this>id;
+        $questionVote->user_id = $this->id;
         $questionVote->type = $type;
         $questionVote->question_id = $question_id;
         $questionVote->save();
@@ -166,7 +166,7 @@ class User extends Authenticatable
     public function vote_on_answer($answer_id,$type)
     {
         $answerVote = new AnswerVote();
-        $answerVote->user_id = $this>id;
+        $answerVote->user_id = $this->id;
         $answerVote->type = $type;
         $answerVote->answer_id = $answer_id;
         $answerVote->save();

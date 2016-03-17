@@ -15,6 +15,8 @@ class VerifyAjax
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if($request->ajax())
+            return $next($request);
+        return "Forbidden";
     }
 }

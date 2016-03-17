@@ -7,7 +7,7 @@
         <th>Questions</th>
     </tr>
     @foreach($courses as $course)
-        <tr href="{{url('browse/'.$course->id)}}">
+        <tr class="course_row" href="{{url('browse/'.$course->id)}}">
 
                 <td>{{$course->course_code}}</td>
                 <td>{{$course->course_name}}</td>
@@ -33,3 +33,8 @@
         border-bottom: 1px solid #FFAF6C;
     }
 </style>
+<script>
+    $('.course_row').click(function(){
+       window.location.href = $(this).attr('href');
+    });
+</script>

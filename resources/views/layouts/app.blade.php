@@ -60,8 +60,8 @@
                 </ul>
             @else
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="{{url('/login')}}">Login</a></li>
+                    <li><a href="{{url('/register')}}">Register</a></li>
                 </ul>
             @endif
 

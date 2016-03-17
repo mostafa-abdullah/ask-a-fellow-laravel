@@ -14,7 +14,7 @@
                 @endforeach
             </select>
             <br>
-            <a id="show_courses" style="margin-top:30px;"href="#" class="btn btn-info">Show courses</a>
+            <a id="show_courses" style="margin-top:20px; margin-bottom:30px;"href="#" class="btn btn-info">Show courses</a>
         </div>
 
         <div class="courses pull-right">
@@ -28,11 +28,31 @@
         .major_and_semester
         {
             width: 30%;
+            display:inline-block;
         }
         .courses
         {
-            /*width: 0;*/
+            display: inline-block;
+            width: 60%;
             margin-left: 50px;
+        }
+
+        @media (max-width:800px)
+        {
+            .major_and_semester
+            {
+                width: 70%;
+                display: block;
+            }
+            .courses
+            {
+                display: block;
+
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+                float:none !important;
+            }
         }
 
     </style>
@@ -45,8 +65,7 @@
             $.ajax({
                 url: url+'/'+major+'/'+semester,
                 success: function(data){
-                    $('.major_and_semester').addClass('pull-left');
-                    $('.courses').css('width','60%').html(data);
+                    $('.courses').html(data);
 
                 }
 
