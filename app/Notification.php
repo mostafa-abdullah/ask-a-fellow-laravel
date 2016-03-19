@@ -23,4 +23,14 @@ class Notification extends Model
         $this->save();
     }
 
+
+    public static function send_notification($user_id, $description, $link)
+    {
+        $notification = new Notification;
+        $notification->user_id = $user_id;
+        $notification->notification_description = $description;
+        $notification->notification_link = $link;
+        $notification->save();
+    }
+
 }

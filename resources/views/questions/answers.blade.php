@@ -1,5 +1,31 @@
+<?php
+    $order = 'votes';
+    if(isset($_GET['sort']))
+        $order = $_GET['sort'];
+    $allowed = ['votes','oldest','latest'];
+    if(!in_array($order,$allowed))
+        $order = 'votes';
+
+
+    $answers = array();
+    if($order == 'votes')
+        $answers = $question->answers()->orderBy('votes','desc')->orderBy('created_at','desc')->get();
+    elseif($order == 'oldest')
+        $answers = $question->answers()->orderBy('created_at','asc')->get();
+    elseif($order == 'latest')
+        $answers = $question->answers()->orderBy('created_at','desc')->get();
+    else
+        $answers = $question->answers()->orderBy('votes','desc')->orderBy('created_at','desc')->get();
+
+
+
+
+?>
+
 @extends('layouts.app')
 @section('content')
+    <link href="{{asset('/css/formInput.css')}}" rel="stylesheet">
+    <script src="{{asset('/js/classie.js')}}" type="text/javascript"></script>
     <div class="container" style="padding-left: 80px;">
         <div class="media question">
             <div style="text-align: center" class="media-left">
@@ -13,7 +39,7 @@
                     @endif
                 </a>
                 @if(Auth::user())
-                    <a title="upvote" style="color:green;"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                    <a class="vote" title="upvote" style="color:green;"><span class="glyphicon glyphicon-thumbs-up"></span></a>
                 @endif
                 @if($question->votes > 0)
                     <span style="color:green;">{{$question->votes}} </span>
@@ -23,7 +49,7 @@
                     <span style="color:red;">{{$question->votes}} </span>
                 @endif
                 @if(Auth::user())
-                    <a title="downvote"  style="color:red"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                    <a class="vote" title="downvote"  style="color:red"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                 @endif
             </div>
             <div class="media-body">
@@ -35,9 +61,21 @@
             </div>
 
         </div>
-        <h2>{{count($question->answers()->get())}} Answer(s)</h2>
+        <h2 style="">{{count($question->answers()->get())}} Answer(s)</h2>
+        <form class="navbar-form" action="">
+            <div class="form-group">
+                <label class="form-label">Order by: </label>
+                <select name="sort" class="form-control">
+                    <option value="votes">Votes</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="latest">Latest</option>
+                </select>
+                <input type="submit" class="btn btn-default" value="Sort">
+            </div>
+        </form>
         <div class="answers">
-            @foreach($question->answers()->get() as $answer)
+
+            @foreach($answers as $answer)
                 <div class="media answer">
                     <div style="text-align: center" class="media-left">
 
@@ -50,17 +88,17 @@
                             @endif
                         </a>
                         @if(Auth::user())
-                            <a class="upvote_answer" value="{{$answer->id}}" title="upvote" style="color:green;"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                            <a class="upvote_answer vote" value="{{$answer->id}}" title="upvote" style="color:green;"><span class="glyphicon glyphicon-thumbs-up"></span></a>
                         @endif
-                        @if($question->votes > 0)
-                            <span class="answer_votes" style="color:green;">{{$answer->votes}} </span>
-                        @elseif($question->votes == 0)
+                        @if($answer->votes > 0)
+                            <span class="answer_votes" style="color:green; font-size:18px;">{{$answer->votes}} </span>
+                        @elseif($answer->votes == 0)
                             <span class="answer_votes" style="">{{$answer->votes}} </span>
                         @else
                             <span class="answer_votes" style="color:red;">{{$answer->votes}} </span>
                         @endif
                         @if(Auth::user())
-                            <a class="downvote_answer" value="{{$answer->id}}" title="downvote" href="#" style="color:red"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                            <a class="downvote_answer vote" value="{{$answer->id}}" title="downvote" style="color:red"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                         @endif
                     </div>
                     <div class="media-body">
@@ -74,6 +112,18 @@
                 </div>
             @endforeach
         </div>
+        @if(Auth::user())
+        <form id="post_answer_form" action="" method="POST">
+            {{csrf_field()}}
+            <div class="form-group">
+                <label for="post_answer_text">Post an answer:</label>
+                <textarea required class="form-control" id="post_answer_text" name="answer" placeholder="Type your answer here"></textarea>
+                <input type="submit" value="Post Answer" class="btn btn-default pull-right" id="post_answer_submit">
+            </div>
+        </form>
+        @else
+            <div class="">You must be logged in to be able to answer. <a href="{{url('/login')}}">Login here.</a></div>
+        @endif
     </div>
 
 
@@ -135,10 +185,49 @@
         {
             font-size: 15px;
         }
+        
+        
+        .vote
+        {
+            cursor: pointer;
+        }
+
+        #post_answer_form
+        {
+            width: 60%;
+            margin-left: 90px;
+            margin-top: 50px;
+        }
+        #post_answer_form textarea
+        {
+            resize: none;
+            height:150px;
+            font-size: 18px;
+        }
+        #post_answer_form #post_answer_submit
+        {
+            background-color: #FFE9CF;
+            border: 1px solid #CCB69C;
+            margin-top: 10px;
+        }
+        #post_answer_form #post_answer_submit:focus
+        {
+            background-color: #CCB69C;
+            /*border: 1px solid #CCB69C !important;*/
+
+        }
+
+
 
     </style>
 
     <script>
+        $(document).ready(function(){
+            if($('#post_answer_text').val().trim().length == 0)
+                $('#post_answer_submit').attr('disabled',true);
+            else
+                $('#post_answer_submit').attr('disabled',false);
+        });
         $('.downvote_answer').click(function()
         {
             var answer_id = $(this).attr('value');
@@ -162,6 +251,15 @@
                     answer.parent().find('.answer_votes').html(data);
                 }
             });
+        });
+
+        $('#post_answer_text').keyup(function()
+        {
+            if($(this).val().trim().length == 0)
+                $('#post_answer_submit').attr('disabled',true);
+            else
+                $('#post_answer_submit').attr('disabled',false);
+
         });
     </script>
 @endsection
