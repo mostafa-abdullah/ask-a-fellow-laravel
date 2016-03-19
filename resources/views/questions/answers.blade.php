@@ -30,7 +30,7 @@
         <div class="media question">
             <div style="text-align: center" class="media-left">
 
-                <a href="#">
+                <a href="{{url('user/'.$question->asker_id)}}">
 
                     @if($question->asker->profile_picture)
                         <img class="media-object" src="{{asset($question->asker->profile_picture)}}" alt="...">
@@ -53,7 +53,12 @@
                 @endif
             </div>
             <div class="media-body">
-                <h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3>
+                @if(Auth::user() && (Auth::user()->id == $question->asker_id || Auth::user()->role >= 1))
+                <div class="delete_question pull-right">
+                    <a onclick="return confirm('Are you sure?');" title="Delete question" class="btn btn-warning" href="{{url('delete_question/'.$question->id)}}">X</a>
+                </div>
+                @endif
+                <a href="{{url('user/'.$question->asker_id)}}"><h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3></a>
                 <div class="question_text">
                     {{$question->question}}
                 </div>
@@ -79,7 +84,7 @@
                 <div class="media answer">
                     <div style="text-align: center" class="media-left">
 
-                        <a href="#">
+                        <a href="{{url('user/'.$answer->responder_id)}}">
 
                             @if($answer->responder->profile_picture)
                                 <img class="media-object" src="{{asset($answer->responder->profile_picture)}}" alt="...">
@@ -102,6 +107,11 @@
                         @endif
                     </div>
                     <div class="media-body">
+                        @if(Auth::user() && (Auth::user()->id == $answer->responder_id || Auth::user()->role >= 1))
+                        <div class="delete_answer pull-right">
+                            <a onclick="return confirm('Are you sure?');" title="Delete answer" class="btn btn-warning" href="{{url('delete_answer/'.$answer->id)}}">X</a>
+                        </div>
+                        @endif
                         <h3>{{$answer->responder->first_name.' '.$answer->responder->last_name}}</h3>
                         <div class="answer_text">
                             {{$answer->answer}}

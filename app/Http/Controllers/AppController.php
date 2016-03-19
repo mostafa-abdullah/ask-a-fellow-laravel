@@ -73,4 +73,22 @@ class AppController extends Controller
         Notification::send_notification($asker_id,$description,$link);
         return redirect(url('/answers/'.$question_id));
     }
+
+
+    public function delete_answer($answer_id)
+    {
+        $answer = Answer::find($answer_id)->find($answer_id);
+//        dd($answer);
+        $answer->delete();
+
+        return redirect(url('answers/'.$answer->question_id));
+    }
+
+    public function delete_question($question_id)
+    {
+        $question = Question::find($question_id);
+        $question->delete();
+    }
 }
+
+
