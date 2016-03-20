@@ -59,8 +59,9 @@ class AppController extends Controller
             $page = 0;
 
         $questions = $course->questions()->skip($page * $take)->take($take);
+        $num_questions = count($course->questions()->get());
+        return view('questions.questions',compact(['questions','num_questions']));
 
-        return $questions->get();
     }
 
 
@@ -72,8 +73,22 @@ class AppController extends Controller
         foreach($courses as $course)
             $ids[] = $course->id;
 
-        $questions = Question::whereIn('course_id',$ids);
-        return $questions->get();
+        if(isset($_GET['page']))
+            $page = $_GET['page'];
+        else
+            $page = 0;
+        if(isset($_GET['take']))
+            $take = $_GET['take'];
+        else
+            $take = 10;
+        if($take <= 0)
+            $take = 10;
+        if($page <= 0)
+            $page = 0;
+        $questions = Question::whereIn('course_id',$ids)->skip($page * $take)->take($take);
+        $all = true;
+        $num_questions = count(Question::whereIn('course_id',$ids)->get());
+        return view('questions.questions',compact(['questions','all','num_questions']));
     }
 
 
