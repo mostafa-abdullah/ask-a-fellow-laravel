@@ -16,8 +16,14 @@ use Auth;
 
 class AppController extends Controller
 {
-    public function _construct()
+    public function __construct()
     {
+        $this->middleware('auth', ['only' => [
+            'post_question',
+            'post_answer',
+            'delete_question',
+            'delete_answer'
+        ]]);
 
     }
 
@@ -31,13 +37,64 @@ class AppController extends Controller
 
     public function list_questions($course_id)
     {
+
         $course = Course::find($course_id);
         //sort questions
         if(!$course)
             return 'Ooops! course not found';
-        $questions = $course->questions()->get();
 
-        return $questions;
+        if(isset($_GET['page']))
+            $page = $_GET['page'];
+        else
+            $page = 0;
+        if(isset($_GET['take']))
+            $take = $_GET['take'];
+        else
+            $take = 10;
+
+
+        if($take <= 0)
+            $take = 10;
+        if($page <= 0)
+            $page = 0;
+
+        $questions = $course->questions()->skip($page * $take)->take($take);
+
+        return $questions->get();
+    }
+
+
+    public function list_questions_all($major_id, $semester)
+    {
+        $major = Major::find($major_id);
+        $courses = $major->courses()->where('semester','=',$semester)->get(['courses.id']);
+        $ids = array();
+        foreach($courses as $course)
+            $ids[] = $course->id;
+
+        $questions = Question::whereIn('course_id',$ids);
+        return $questions->get();
+    }
+
+
+    public function post_question(Request $request, $course_id)
+    {
+        $this->validate($request,[
+            'question' => 'required'
+        ]);
+        $question = new Question;
+        $question->asker_id = Auth::user()->id;
+        $question->question = $request->question;
+        $question->course_id = $course_id;
+        $question->save();
+        return redirect('/browse/'.$course_id);
+    }
+
+    public function delete_question($question_id)
+    {
+        $question = Question::find($question_id);
+        if(Auth::user() && Auth::user()->id == $question->asker_id)
+            $question->delete();
     }
 
 
@@ -83,12 +140,7 @@ class AppController extends Controller
         return redirect(url('answers/'.$answer->question_id));
     }
 
-    public function delete_question($question_id)
-    {
-        $question = Question::find($question_id);
-        if(Auth::user() && Auth::user()->id == $question->asker_id)
-            $question->delete();
-    }
+
 }
 
 

@@ -55,10 +55,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/browse','AppController@browse');
     Route::get('/list_courses/{major}/{semester}','AjaxController@getCourses');
     Route::get('/browse/{course_id}','AppController@list_questions');
+    Route::get('/browse/{major}/{semester}','AppController@list_questions_all');
     Route::get('/answers/{question_id}','AppController@inside_question');
     Route::post('/answers/{question_id}','AppController@post_answer');
     Route::get('/delete_answer/{id}','AppController@delete_answer');
     Route::get('/delete_question/{id}','AppController@delete_question');
+
+
 
 
     Route::get('/vote/{answer_id}/{type}','AjaxController@vote');

@@ -14,6 +14,9 @@ class AjaxController extends Controller
 {
     public function __construct(){
         $this->middleware('ajax');
+        $this->middleware('auth', ['only' => [
+            'vote'
+        ]]);
     }
 
 

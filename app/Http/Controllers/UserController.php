@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth',['only'=>[
+            'updateInfoPage'
+        ]]);
+    }
+
     public function show($id)
     {
         $user = User::find($id);
