@@ -42,6 +42,7 @@
 
             @if(Auth::user())
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a title="{{count(Auth::user()->new_notifications)}} new notifications" href="#"><span style="font-size:20px; color:{{ count(Auth::user()->new_notifications)?'#D61919':'White'  }}" class="glyphicon glyphicon-bell">{{(count(Auth::user()->new_notifications))?count(Auth::user()->new_notifications):''}}</span></a></li>
                     <li class="dropdown" >
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name}} <span class="caret"></span></a>
                         <ul class="dropdown-menu" style="background-color: #FFAF6C;">

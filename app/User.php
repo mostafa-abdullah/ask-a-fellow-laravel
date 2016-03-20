@@ -63,6 +63,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Notification');
     }
 
+    /**
+     * Get a list of unseen notifications of this user.
+     * @return mixed
+     */
+    public function new_notifications()
+    {
+        return $this->notifications()->where('seen','=',0);
+    }
+
+
 
     /**
      * Votes on answers done by this user

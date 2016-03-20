@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="questions">
-            <h3 style="margin-left: 50px">Showing {{count($questions)}} out of {{$num_questions}} Question(s).</h3>
+            <h3 style="margin-left: 50px">Showing {{count($questions->get())}} out of {{$num_questions}} Question(s).</h3>
             @foreach($questions->get() as $question)
                 <div class="media question">
                     <div style="text-align: center" class="media-left">
