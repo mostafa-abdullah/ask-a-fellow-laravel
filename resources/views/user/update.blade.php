@@ -3,7 +3,7 @@
     <div class="container" style="padding-left: 100px; padding-right: 100px;">
         <h1>{{$user->first_name.' '.$user->last_name}}</h1>
         <br>
-        <form class="form-horizontal" style="width: 80%;" method="POST" action="">
+        <form class="form-horizontal" style="width: 80%;" method="POST" action="" enctype="multipart/form-data">
             {{  csrf_field() }}
             <div class="form-group">
                 <label for="first_name" class="col-sm-3 control-label">First Name</label>
@@ -41,6 +41,14 @@
                    <textarea class="form-control" id="bio" name="bio">{{$user->bio}}</textarea>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="profile_picture" class="col-sm-3 control-label">Profile Picture</label>
+                <div class="col-sm-7">
+                    <input name="profile_picture" id="profile_picture" type="file" accept="image/*" >
+                </div>
+            </div>
+
+
 
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-10">

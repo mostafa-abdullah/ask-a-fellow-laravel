@@ -54,12 +54,13 @@ class UserController extends Controller
             'last_name' => 'alpha|required',
             'major' => 'numeric|exists:majors,id',
             'semester' => 'numeric|min:0|max:10',
+            'profile_picture' => 'image|max:1000'
 
         ]);
 
 
         $user = Auth::user();
-//        dd($request);
+
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->semester = $request->semester;
@@ -68,8 +69,31 @@ class UserController extends Controller
         else
             $user->major_id = null;
         $user->bio = $request->bio;
+
+        if($request->file('profile_picture'))
+        {
+
+            //change profile picture
+            if($user->profile_picture)
+                unlink('../public'.Auth::user()->profile_picture);
+            $file = $request->file('profile_picture');
+            $photoname = uniqid();
+
+            $file_name = $photoname.'.'.$file->guessClientExtension();
+
+            //resize here
+            $file->move('../public/art/pp',$file_name);
+            $user->profile_picture = '/art/pp/' . $photoname . '.'.$file->guessClientExtension();
+        }
+
         $user->save();
+
+
+
+
         Session::flash('updated','Info updated successfully!');
         return redirect(url('/user/'.$user->id));
     }
+
+
 }
