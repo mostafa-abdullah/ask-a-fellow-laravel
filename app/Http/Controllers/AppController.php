@@ -58,6 +58,7 @@ class AppController extends Controller
         if($page <= 0)
             $page = 0;
 
+
         $questions = $course->questions()->skip($page * $take)->take($take);
         $num_questions = count($course->questions()->get());
         return view('questions.questions',compact(['questions','num_questions']));

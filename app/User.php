@@ -110,7 +110,7 @@ class User extends Authenticatable
     }
 
     public function downvotesOnQuestion($id){
-        return $this->hasMany('App\QuestionVote')->where('type','=',1)->where('question_idd','=',$id)->get();
+        return $this->hasMany('App\QuestionVote')->where('type','=',1)->where('question_id','=',$id)->get();
     }
 
 

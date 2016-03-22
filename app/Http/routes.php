@@ -55,6 +55,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/browse','AppController@browse');
     Route::get('/list_courses/{major}/{semester}','AjaxController@getCourses');
     Route::get('/browse/{course_id}','AppController@list_questions');
+    Route::post('/browse/{course_id}','AppController@post_question');
     Route::get('/browse/{major}/{semester}','AppController@list_questions_all');
     Route::get('/answers/{question_id}','AppController@inside_question');
     Route::post('/answers/{question_id}','AppController@post_answer');
@@ -64,7 +65,8 @@ Route::group(['middleware' => ['web']], function () {
 
 
 
-    Route::get('/vote/{answer_id}/{type}','AjaxController@vote');
+    Route::get('/vote/answer/{answer_id}/{type}','AjaxController@vote_answer');
+    Route::get('/vote/question/{answer_id}/{type}','AjaxController@vote_question');
     //
 });
 

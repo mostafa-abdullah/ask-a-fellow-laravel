@@ -244,7 +244,7 @@
             var type = 1;
             var answer = $(this);
             $.ajax({
-                'url' : "{{url('')}}/vote/"+answer_id+"/"+type,
+                'url' : "{{url('')}}/vote/answer/"+answer_id+"/"+type,
                 success: function(data){
                     answer.parent().find('.answer_votes').html(data);
                 }
@@ -256,7 +256,7 @@
             var type = 0;
             var answer = $(this);
             $.ajax({
-                'url' : "{{url('')}}/vote/"+answer_id+"/"+type,
+                'url' : "{{url('')}}/vote/answer/"+answer_id+"/"+type,
                 success: function(data){
                     answer.parent().find('.answer_votes').html(data);
                 }
