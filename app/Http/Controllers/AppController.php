@@ -140,7 +140,7 @@ class AppController extends Controller
         $answer->question_id = $question_id;
         $answer->save();
 
-        $asker_id = Question::find($question_id)->first()->asker_id;
+        $asker_id = Question::find($question_id)->asker_id;
         $description = Auth::user()->first_name.' '.Auth::user()->last_name.' posted an answer to your question.';
         $link = url('/answers/'.$question_id);
         Notification::send_notification($asker_id,$description,$link);

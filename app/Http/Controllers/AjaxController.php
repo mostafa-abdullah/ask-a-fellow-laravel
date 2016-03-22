@@ -12,6 +12,7 @@ use Auth;
 use App\AnswerVote;
 use App\Question;
 use App\QuestionVote;
+use App\Notification;
 
 class AjaxController extends Controller
 {
@@ -51,8 +52,20 @@ class AjaxController extends Controller
         else
             $user->vote_on_answer($answer_id, $type);
 
+        $answer = Answer::find($answer_id);
+        if(Auth::user()->id != $answer->responder_id)
+        {
+            //send notification
+            $responder_id = $answer->responder_id;
+            $action = ($type == 0)?' upvoted':' downvoted';
+            $description = Auth::user()->first_name.' '.Auth::user()->last_name.$action.' your answer.';
+            $link = url('/answers/'.$answer->question_id);
+            Notification::send_notification($responder_id,$description,$link);
 
-        $votes = Answer::find($answer_id)->votes;
+        }
+
+
+        $votes = $answer->votes;
         $color = 'black';
         if($votes>0)
             $color = 'green';
@@ -80,6 +93,17 @@ class AjaxController extends Controller
         else
             $user->vote_on_question($question_id, $type);
 
+        $question = Question::find($question_id);
+        if(Auth::user()->id != $question->asker_id)
+        {
+            //send notification
+            $asker_id = $question->asker_id;
+            $action = ($type == 0)?' upvoted':' downvoted';
+            $description = Auth::user()->first_name.' '.Auth::user()->last_name.$action.' your question.';
+            $link = url('/answers/'.$question_id);
+            Notification::send_notification($asker_id,$description,$link);
+
+        }
 
         $votes = Question::find($question_id)->votes;
         $color = 'black';
