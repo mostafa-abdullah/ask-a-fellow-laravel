@@ -178,7 +178,7 @@
         padding-bottom: 50px;
 
 
-        /*height: 800px;*/
+        min-height: 500px;
         width: 80%;
         background-color: #F7E8D6;
         margin-top: 60px;

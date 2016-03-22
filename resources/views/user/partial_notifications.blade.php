@@ -17,6 +17,10 @@
     .notification_row{
         cursor: pointer;
     }
+    .notification_row:hover
+    {
+        background-color: rgba(0,0,0,0.05) !important;
+    }
 </style>
 <script>
     $('.notification_row').click(function(){

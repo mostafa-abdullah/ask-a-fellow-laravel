@@ -22,7 +22,8 @@ class AppController extends Controller
             'post_question',
             'post_answer',
             'delete_question',
-            'delete_answer'
+            'delete_answer',
+            'view_notifications'
         ]]);
 
     }
@@ -164,7 +165,9 @@ class AppController extends Controller
     {
         $user = Auth::user();
         $notifications = $user->notifications;
-        return $notifications;
+
+        return view('user.notifications',compact('notifications'));
+
     }
 
 
