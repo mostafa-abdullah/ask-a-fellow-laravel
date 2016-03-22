@@ -157,6 +157,17 @@ class AppController extends Controller
     }
 
 
+
+
+
+    public function view_notifications()
+    {
+        $user = Auth::user();
+        $notifications = $user->notifications;
+        return $notifications;
+    }
+
+
 }
 
 

@@ -20,7 +20,8 @@ class AjaxController extends Controller
 //        $this->middleware('ajax');
         $this->middleware('auth', ['only' => [
             'vote_answer',
-            'vote_question'
+            'vote_question',
+            'view_notifications_partial'
         ]]);
     }
 
@@ -113,4 +114,19 @@ class AjaxController extends Controller
             $color = 'red';
         return '<span style="color:'.$color.'"">'.$votes.'</span>';
     }
+
+    public function view_notifications_partial()
+    {
+        $user = Auth::user();
+        $unread = count($user->new_notifications);
+        $notifications = $user->notifications()->take(max($unread,8))->orderBy('created_at','desc')->get();
+        foreach($notifications as $notification) {
+            $notification->seen = 1;
+            $notification->save();
+        }
+
+        return view('user.partial_notifications',compact(['notifications','unread']));
+
+    }
+
 }

@@ -42,7 +42,7 @@
 
             @if(Auth::user())
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a title="{{count(Auth::user()->new_notifications)}} new notifications" href="#"><span style="font-size:20px; color:{{ count(Auth::user()->new_notifications)?'#D61919':'White'  }}" class="glyphicon glyphicon-bell">{{(count(Auth::user()->new_notifications))?count(Auth::user()->new_notifications):''}}</span></a></li>
+                    <li><a id="view_notifications" data-toggle="modal" data-target="#notifications_modal" title="{{count(Auth::user()->new_notifications)}} new notifications" href="#"><span style="font-size:20px; color:{{ count(Auth::user()->new_notifications)?'#D61919':'White'  }}" class="glyphicon glyphicon-bell">{{(count(Auth::user()->new_notifications))?count(Auth::user()->new_notifications):''}}</span></a></li>
                     <li class="dropdown" >
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name}} <span class="caret"></span></a>
                         <ul class="dropdown-menu" style="background-color: #FFAF6C;">
@@ -71,10 +71,39 @@
 </nav>
 
 
+
+
+
 <div id="main_content" class="center-block">
     @yield('content')
 
 </div>
+@if(Auth::user())
+    <div id="notifications_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class=""  style="background-color:rgba(255,255,255,0.8)">
+
+                <button style="margin-right:15px;margin:top:10px;"type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+
+                <br>
+                <div class="modal-body" style="text-align:center">
+                    <h3><p>Notifications </p></h3>
+                    <div id="list_notifications">
+
+                    </div>
+
+                    <br>
+
+
+                </div>
+                <!-- <div class="modal-footer"> -->
+
+                <!-- </div> -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+@endif
 <div id="footer"></div>
 </body>
 </html>
@@ -166,3 +195,13 @@
 
 
 </style>
+<script>
+    $('#view_notifications').click(function(){
+        $.ajax({
+           'url' : "{{url('/notifications_partial')}}",
+            success : function(data){
+                $('#list_notifications').html(data);
+            }
+        });
+    });
+</script>
