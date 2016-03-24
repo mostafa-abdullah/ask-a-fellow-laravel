@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 
+use App\AnswerReport;
 use App\QuestionReport;
 use Illuminate\Http\Request;
 
@@ -185,6 +186,30 @@ class AppController extends Controller
 
 
     }
+
+
+    public function send_report_answer(Request $request)
+    {
+        $reason = $request->reason;
+        $other = $request->other;
+        if($reason == 'Other')
+            $reason = $other;
+
+        if(!$reason)
+            $reason = 'Unknown';
+
+        $answer_id = $request->answer_id;
+        $report = new AnswerReport;
+        $report->report = $reason;
+        $report->user_id = Auth::user()->id;
+        $report->answer_id = $request->answer_id;
+        $report->link = url('/answers/'.Answer::find($answer_id)->question_id);
+        $report->save();
+        return "Report submitted successfully";
+
+
+    }
+
 
 
 

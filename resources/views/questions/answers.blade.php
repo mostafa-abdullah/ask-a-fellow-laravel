@@ -55,7 +55,7 @@
             <div class="media-body">
                 @if(Auth::user() && (Auth::user()->id == $question->asker_id || Auth::user()->role >= 1))
                 <div class="delete_question pull-right">
-                    <a onclick="return confirm('Are you sure?');" title="Delete question" class="btn btn-warning" href="{{url('delete_question/'.$question->id)}}">X</a>
+                    <a onclick="return confirm('Are you sure?');" title="Delete question" class="" href="{{url('delete_question/'.$question->id)}}"><span style="color:#FFAF6C" class="glyphicon glyphicon-remove"></span></a>
                 </div>
                 @endif
                 <a href="{{url('user/'.$question->asker_id)}}"><h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3></a>
@@ -107,10 +107,15 @@
                         @endif
                     </div>
                     <div class="media-body">
-                        @if(Auth::user() && (Auth::user()->id == $answer->responder_id || Auth::user()->role >= 1))
-                        <div class="delete_answer pull-right">
-                            <a onclick="return confirm('Are you sure?');" title="Delete answer" class="btn btn-warning" href="{{url('delete_answer/'.$answer->id)}}">X</a>
-                        </div>
+                        @if(Auth::user())
+                            <div class="delete_answer pull-right">
+                            @if(Auth::user()->id == $answer->responder_id || Auth::user()->role >= 1)
+
+                                    <a onclick="return confirm('Are you sure?');" title="Delete answer" href="{{url('delete_answer/'.$answer->id)}}"><span style="color:#FFAF6C" class="glyphicon glyphicon-remove"></span></a>
+
+                            @endif
+                            <a value="{{$answer->id}}" data-toggle="modal" data-target="#report_modal" class="report_answer" title="Report answer"><span style="color:#D24848;cursor:pointer;" class="glyphicon glyphicon-ban-circle"></span></a>
+                            </div>
                         @endif
                         <h3>{{$answer->responder->first_name.' '.$answer->responder->last_name}}</h3>
                         <div class="answer_text">
@@ -121,6 +126,38 @@
 
                 </div>
             @endforeach
+        </div>
+        <div id="report_modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class=""  style="background-color:rgba(255,255,255,0.9)">
+
+                    <button style="margin-right:15px;margin:top:10px;"type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+
+                    <br>
+                    <div class="modal-body" style="padding: 0 50px 40px 50px;">
+                        <h3>Report answer </h3>
+                        <div class="form-group" style="width: 50%;">
+                            <input  type="radio" name="reason" value="Contains inappropriate content"> Contains inappropriate content<br>
+                            <input  type="radio" name="reason" value="Contains misleading information"> Contains misleading information<br>
+                            <input  type="radio" name="reason" value="Contains violent speech"> Contains violent speech<br>
+                            <input  type="radio" name="reason" value="Contains hateful content"> Contains hateful content<br>
+                            <input  type="radio" id="report_other" name="reason" value="Other"> Other<br>
+                            <textarea class="form-control" id="report_other_text"></textarea>
+
+
+
+
+                        </div>
+
+                        <button id="submit_report" class="btn btn-default">Send</button>
+                        @include('errors')
+                    </div>
+                    <!-- <div class="modal-footer"> -->
+
+                    <!-- </div> -->
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
         </div>
         @if(Auth::user())
         <form id="post_answer_form" action="" method="POST">
@@ -237,6 +274,32 @@
                 $('#post_answer_submit').attr('disabled',true);
             else
                 $('#post_answer_submit').attr('disabled',false);
+            $('#report_other_text').hide();
+        });
+
+        $('input[name=reason]').on('change', function() {
+            if($(this).val() == 'Other')
+                $('#report_other_text').show();
+            else
+                $('#report_other_text').hide();
+        });
+
+        var reported_answer_id = 1;
+        $('.report_answer').click(function(){
+            reported_answer_id = $(this).attr('value');
+
+        });
+        $('#submit_report').click(function(){
+            var reason = $('input[name=reason]:checked').val();
+            var other = $('#report_other_text').val();
+            $.ajax({
+                type: "GET",
+                url : "{{url('/report_answer/')}}",
+                data : {reason:reason,other:other,answer_id:reported_answer_id},
+                success : function(data){
+                    $('#report_modal .modal-body').html(data);
+                }
+            });
         });
         $('.downvote_answer').click(function()
         {
