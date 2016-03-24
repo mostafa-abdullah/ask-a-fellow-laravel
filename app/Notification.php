@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Notification extends Model
 {
@@ -26,6 +27,8 @@ class Notification extends Model
 
     public static function send_notification($user_id, $description, $link)
     {
+        if(Auth::user() && Auth::user()->id == $user_id)
+            return;
         $notification = new Notification;
         $notification->user_id = $user_id;
         $notification->notification_description = $description;
