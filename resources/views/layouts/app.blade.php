@@ -180,10 +180,10 @@
 
         min-height: 500px;
         width: 80%;
-        background-color: #F7E8D6;
+        background-color: #FFFAF4;
         margin-top: 60px;
         margin-bottom: 10px;
-        box-shadow: 0px 5px 10px -1px #888888;
+        /*box-shadow: 0px 5px 10px -1px #888888;*/
         z-index: 1;
     }
     @media (min-width:777px) and (max-width: 1000px) {

@@ -136,6 +136,16 @@ class User extends Authenticatable
 
 
     /**
+     * Subscribe to multiple courses
+     * @param $ids
+     */
+    public function subscribe_to_courses($ids)
+    {
+        $this->subscribed_courses()->attach($ids);
+    }
+
+
+    /**
      * Subscribe to a whole major
      * @param $major_id
      */

@@ -23,7 +23,9 @@ class AppController extends Controller
             'post_answer',
             'delete_question',
             'delete_answer',
-            'view_notifications'
+            'view_notifications',
+            'subscribe_to_courses',
+            'subscription_page'
         ]]);
 
     }
@@ -168,6 +170,29 @@ class AppController extends Controller
 
         return view('user.notifications',compact('notifications'));
 
+    }
+
+
+    public function subscription_page()
+    {
+        $majors = Major::all();
+        $courses = Auth::user()->subscribed_courses()->get(['courses.id']);
+        $subscribed_courses = array();
+        foreach($courses as $course)
+            $subscribed_courses[] = $course->id;
+        return view('user.subscriptions',compact(['majors','subscribed_courses']));
+    }
+
+    public function subscribe_to_courses(Request $request)
+    {
+        $this->validate($request,[
+            'course.*' => 'numeric|exists:courses,id'
+        ]);
+
+        Auth::user()->subscribed_courses()->detach();
+        Auth::user()->subscribe_to_courses(array_unique($request->course));
+
+        return redirect('/home');
     }
 
 

@@ -48,10 +48,10 @@
             padding-bottom: 50px !important;
             /*height: 800px;*/
             width: 80% !important;
-            background-color: #F7E8D6;
+            /*background-color: #F7E8D6;*/
             margin-top: 30px !important;
             margin-bottom: 10px ;
-            box-shadow: 0px 5px 10px -1px #888888;
+            /*box-shadow: 0px 5px 10px -1px #888888;*/
             z-index: 1;
         }
 
