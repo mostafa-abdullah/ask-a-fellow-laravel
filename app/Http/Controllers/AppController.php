@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,7 +12,10 @@ use App\Course;
 use App\Question;
 use App\Answer;
 use App\Notification;
+use App\Feedback;
 use Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 
 class AppController extends Controller
@@ -193,6 +197,22 @@ class AppController extends Controller
         Auth::user()->subscribe_to_courses(array_unique($request->course));
 
         return redirect('/home');
+    }
+
+
+    public function send_feedback(Request $request)
+    {
+        $this->validate($request,[
+            'email' => 'email',
+            'feedback' => 'required'
+        ]);
+        $feedback = new Feedback;
+        $feedback->name = $request->name;
+        $feedback->email = $request->email;
+        $feedback->feedback = $request->feedback;
+        $feedback->save();
+        Session::flash('feedback','Feedback submitted successfully');
+        return Redirect::back();
     }
 
 

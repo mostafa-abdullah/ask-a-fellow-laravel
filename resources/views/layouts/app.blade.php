@@ -75,6 +75,14 @@
 
 
 <div id="main_content" class="center-block">
+    @if (session('feedback'))
+        <div class="flash-message">
+            <div class="alert alert-success" style="margin-left: 30px; margin-right: 30px;text-align: center;">
+                {{session('feedback')}}
+            </div>
+        </div>
+    @endif
+    @include('errors')
     @yield('content')
 
 </div>

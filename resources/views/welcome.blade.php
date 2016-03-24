@@ -44,6 +44,13 @@
     </div><!-- /.container-fluid -->
 </nav>
 <header>
+    @if (session('feedback'))
+        <div class="flash-message">
+            <div class="alert alert-info" style="margin-left:50px; margin-right:50px; background-color: #FFAF6C; border-color: #FF6B2D; color:#AA5B0B; text-align: center;">
+                {{session('feedback')}}
+            </div>
+        </div>
+    @endif
     <div class="description_and_image">
         <div class="name_and_description">
             <h1>Ask a Fellow</h1>
@@ -209,7 +216,7 @@
         top: 0;
         background-color: #FFAF6C !important;
     }
-    
+
     .section_2
     {
         padding: 30px;

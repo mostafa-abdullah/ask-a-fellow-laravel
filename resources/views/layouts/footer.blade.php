@@ -31,7 +31,7 @@
                     <a href="mailto:mostafaabdullahahmed@gmail.com?subject=Ask a Fellow">Contact us</a>
                 </li>
                 <li>
-                    <a >Send Feedback</a>
+                    <a data-toggle="modal" data-target="#feedback_modal">Send Feedback</a>
                 </li>
 
             </ul>
@@ -47,6 +47,45 @@
     <a target="_blank" href="https://www.youtube.com/user/salfoosh"><img class="contact_logo" src="{{asset('/art/youtube.png')}}"></a>
     <a target="_blank" href="https://www.instagram.com/bdaya_ngo/"><img class="contact_logo" src="{{asset('/art/instagram.png')}}"></a>
     <a target="_blank" href="https://github.com/mostafa-abdullah/ask-a-fellow-laravel"><img class="contact_logo" src="{{asset('/art/github.png')}}"></a>
+</div>
+
+
+<div id="feedback_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class=""  style="background-color:rgba(255,255,255,0.8)">
+
+            <button style="margin-right:15px;margin:top:10px;"type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"></h4>
+
+            <br>
+            <div class="modal-body" style="padding: 0 50px 40px 50px;">
+                <h3>Send Feedback </h3>
+                <form method="post" action="{{url('/feedback')}}">
+                    {{csrf_field()}}
+                    <div class="form-group" style="width: 50%;">
+                        <label for="name">Name (Optional)</label>
+                        <input type="text" class="form-control" id="name" placeholder="Name" name="name">
+
+                    </div>
+                    <div class="form-group" style="width: 50%;">
+                        <label for="email">Email address (Optional)</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback">Feedback*</label>
+                        <textarea required class="form-control" id="feedback" name="feedback" style="height: 150px;resize: none;"></textarea>
+
+                    </div>
+                    <button type="submit" class="btn btn-default">Send</button>
+                </form>
+                @include('errors')
+            </div>
+            <!-- <div class="modal-footer"> -->
+
+            <!-- </div> -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
 
 <style>

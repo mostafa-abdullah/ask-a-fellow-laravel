@@ -74,6 +74,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/mark_notification/{notification_id}/{read}','AjaxController@mark_notification');
     Route::get('/subscriptions','AppController@subscription_page');
     Route::post('/subscriptions','AppController@subscribe_to_courses');
+
+
+    Route::post('/feedback','AppController@send_feedback');
     //
 });
 
