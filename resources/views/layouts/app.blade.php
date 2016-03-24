@@ -88,7 +88,7 @@
 
                 <br>
                 <div class="modal-body" style="text-align:center">
-                    <h3><p>Notifications </p></h3>
+                    <h3>Notifications </h3>
                     <div id="list_notifications">
 
                     </div>
@@ -104,7 +104,7 @@
         </div><!-- /.modal-dialog -->
     </div>
 @endif
-<div id="footer"></div>
+@include('layouts.footer');
 </body>
 </html>
 
@@ -165,13 +165,7 @@
         background-color: #FFE9CF;
         z-index: 5;
     }
-    #footer
-    {
-        /*margin-top: 5px;*/
-        height: 200px;
-        width: 100%;
-        background-color: #621708;
-    }
+
     #main_content{
 
         padding-top: 100px;
@@ -186,6 +180,7 @@
         /*box-shadow: 0px 5px 10px -1px #888888;*/
         z-index: 1;
     }
+
     @media (min-width:777px) and (max-width: 1000px) {
         .navbar ul.navbar-left
         {

@@ -177,7 +177,7 @@
         </p>
     </div>
 </div>
-<div id="footer"></div>
+@include('layouts.footer')
 </body>
 </html>
 <style>
@@ -209,13 +209,7 @@
         top: 0;
         background-color: #FFAF6C !important;
     }
-    #footer
-    {
-        /*margin-top: 5px;*/
-        height: 200px;
-        width: 100%;
-        background-color: #621708;
-    }
+    
     .section_2
     {
         padding: 30px;
