@@ -1,7 +1,7 @@
 <div id="footer">
     <div class="container" >
         <h3>Ask a Fellow</h3>
-        <div class="col-md-4">
+        <div class=".col-sm-4 col-md-4">
 
             <ul>
                 <li>
@@ -15,7 +15,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-4">
+        <div class=".col-sm-4 col-md-4">
             <ul>
                 <li>
                     <a href="{{url('/browse')}}">Browse Courses</a>
@@ -25,7 +25,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-4">
+        <div class=".col-sm-4 col-md-4">
             <ul>
                 <li>
                     <a href="mailto:mostafaabdullahahmed@gmail.com?subject=Ask a Fellow">Contact us</a>

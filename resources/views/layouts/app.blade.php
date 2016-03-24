@@ -112,7 +112,7 @@
         </div><!-- /.modal-dialog -->
     </div>
 @endif
-@include('layouts.footer');
+@include('layouts.footer')
 </body>
 </html>
 
