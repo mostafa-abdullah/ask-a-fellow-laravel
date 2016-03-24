@@ -15,6 +15,7 @@ use App\QuestionVote;
 use App\Notification;
 use App\QuestionReport;
 use App\AnswerReport;
+use App\User;
 
 class AjaxController extends Controller
 {
@@ -170,6 +171,11 @@ class AjaxController extends Controller
         $report->question_id = $request->question_id;
         $report->link = url('/answers/'.$question_id);
         $report->save();
+        $admins = User::where('role','>',0)->get(['id']);
+        $description = Auth::user()->first_name.' '.Auth::user()->last_name.' reported a question.';
+        $link = $report->link;
+        foreach($admins as $admin)
+            Notification::send_notification($admin->id,$description,$link);
         return "Report submitted successfully";
 
 
@@ -193,6 +199,11 @@ class AjaxController extends Controller
         $report->answer_id = $request->answer_id;
         $report->link = url('/answers/'.Answer::find($answer_id)->question_id);
         $report->save();
+        $admins = User::where('role','>',0)->get(['id']);
+        $description = Auth::user()->first_name.' '.Auth::user()->last_name.' reported an answer.';
+        $link = $report->link;
+        foreach($admins as $admin)
+            Notification::send_notification($admin->id,$description,$link);
         return "Report submitted successfully";
 
 
