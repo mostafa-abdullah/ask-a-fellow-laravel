@@ -75,9 +75,14 @@ else if($order == 'answers')
                         @endif
                     </div>
                     <div class="media-body" style="cursor: pointer;">
-                        @if(Auth::user() && (Auth::user()->id == $question->asker_id || Auth::user()->role >= 1))
+                        @if(Auth::user())
                             <div class="delete_question pull-right">
-                                <a onclick="return confirm('Are you sure?');" title="Delete answer" class="btn btn-warning" href="{{url('delete_answer/'.$question->id)}}">X</a>
+                            @if(Auth::user()->id == $question->asker_id || Auth::user()->role >= 1)
+
+                                    <a onclick="return confirm('Are you sure?');" title="Delete question" href="{{url('delete_question/'.$question->id)}}"><span style="color:#FFAF6C" class="glyphicon glyphicon-remove"></span></a>
+
+                            @endif
+                            <a value="{{$question->id}}" data-toggle="modal" data-target="#report_modal" class="report_question" title="Report question"><span style="color:#D24848;" class="glyphicon glyphicon-ban-circle"></span></a>
                             </div>
                         @endif
                         <h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3>
@@ -91,6 +96,38 @@ else if($order == 'answers')
                 </div>
 
             @endforeach
+            <div id="report_modal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                    <div class=""  style="background-color:rgba(255,255,255,0.9)">
+
+                        <button style="margin-right:15px;margin:top:10px;"type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+
+                        <br>
+                        <div class="modal-body" style="padding: 0 50px 40px 50px;">
+                            <h3>Report question </h3>
+                                <div class="form-group" style="width: 50%;">
+                                    <input  type="radio" name="reason" value="Contains inappropriate content"> Contains inappropriate content<br>
+                                    <input  type="radio" name="reason" value="Contains misleading information"> Contains misleading information<br>
+                                    <input  type="radio" name="reason" value="Contains violent speech"> Contains violent speech<br>
+                                    <input  type="radio" name="reason" value="Contains hateful content"> Contains hateful content<br>
+                                    <input  type="radio" id="report_other" name="reason" value="Other"> Other<br>
+                                    <textarea class="form-control" id="report_other_text"></textarea>
+                                    <input type="hidden" id="reported_question_id" value="">
+
+
+
+                                </div>
+
+                                <button id="submit_report" class="btn btn-default">Send</button>
+                            @include('errors')
+                        </div>
+                        <!-- <div class="modal-footer"> -->
+
+                        <!-- </div> -->
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
             <form id="post_question_form" action="" method="POST">
                 {{csrf_field()}}
                 <div class="form-group">
@@ -186,6 +223,36 @@ else if($order == 'answers')
     </style>
 
     <script>
+        $(document).ready(function(){
+            $('#report_other_text').hide();
+        });
+
+
+        $('input[name=reason]').on('change', function() {
+            if($(this).val() == 'Other')
+                $('#report_other_text').show();
+            else
+                $('#report_other_text').hide();
+        });
+
+        var reported_question_id = 1;
+        $('.report_question').click(function(){
+           reported_question_id = $(this).attr('value');
+
+        });
+        $('#submit_report').click(function(){
+            var reason = $('input[name=reason]:checked').val();
+            var other = $('#report_other_text').val();
+            $.ajax({
+                type: "GET",
+                url : "{{url('/report_question/')}}",
+                data : {reason:reason,other:other,question_id:reported_question_id},
+                success : function(data){
+                    $('#report_modal .modal-body').html(data);
+                }
+            });
+        });
+
         $('.question_text').click(function(){
            window.location.href = $(this).parent().parent().attr('href');
         });

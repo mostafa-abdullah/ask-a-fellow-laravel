@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 
+use App\QuestionReport;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -116,8 +117,9 @@ class AppController extends Controller
     public function delete_question($question_id)
     {
         $question = Question::find($question_id);
-        if(Auth::user() && Auth::user()->id == $question->asker_id)
+        if(Auth::user() && (Auth::user()->role > 0 ||  Auth::user()->id == $question->asker_id))
             $question->delete();
+        return redirect(url('browse/'.$question->course_id));
     }
 
 
@@ -158,9 +160,30 @@ class AppController extends Controller
     public function delete_answer($answer_id)
     {
         $answer = Answer::find($answer_id)->find($answer_id);
-        if(Auth::user() && Auth::user()->id == $answer->responder_id)
+        if(Auth::user() && (Auth::user()->role > 0 || Auth::user()->id == $answer->responder_id))
             $answer->delete();
         return redirect(url('answers/'.$answer->question_id));
+    }
+
+    public function send_report_question(Request $request)
+    {
+        $reason = $request->reason;
+        $other = $request->other;
+        if($reason == 'Other')
+            $reason = $other;
+        $question_id = $request->question_id;
+        if(!$reason)
+            $reason = 'Unknown';
+
+        $report = new QuestionReport;
+        $report->report = $reason;
+        $report->user_id = Auth::user()->id;
+        $report->question_id = $request->question_id;
+        $report->link = url('/answers/'.$question_id);
+        $report->save();
+        return "Report submitted successfully";
+
+
     }
 
 

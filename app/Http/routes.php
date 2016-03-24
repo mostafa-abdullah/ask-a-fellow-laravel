@@ -76,8 +76,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/subscriptions','AppController@subscription_page');
     Route::post('/subscriptions','AppController@subscribe_to_courses');
 
-    Route::get('/feedbacks','AdminController@view_feedbacks');
+
     Route::post('/feedback','AppController@send_feedback');
+    Route::get('/report_question','AppController@send_report_question');
     //
 });
 
