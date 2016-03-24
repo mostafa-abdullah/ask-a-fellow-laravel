@@ -71,6 +71,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/notifications_partial/','AjaxController@view_notifications_partial');
     Route::get('/notifications/','AppController@view_notifications');
+    Route::get('/mark_notification/{notification_id}/{read}','AjaxController@mark_notification');
     //
 });
 

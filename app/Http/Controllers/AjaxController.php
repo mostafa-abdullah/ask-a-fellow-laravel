@@ -21,7 +21,8 @@ class AjaxController extends Controller
         $this->middleware('auth', ['only' => [
             'vote_answer',
             'vote_question',
-            'view_notifications_partial'
+            'view_notifications_partial',
+            'mark_notification'
         ]]);
     }
 
@@ -126,6 +127,25 @@ class AjaxController extends Controller
         }
 
         return view('user.partial_notifications',compact(['notifications','unread']));
+
+    }
+
+    public function mark_notification($notification_id, $read)
+    {
+        $notification = Notification::find($notification_id);
+        if($read == 0) {
+            $notification->seen = 0;
+            $notification->save();
+            return '<a href="#" class="mark_as_read" value='.$notification_id.'">Mark as read</a>';
+        }
+        else if($read == 1) {
+            $notification->seen = 1;
+            $notification->save();
+            return '<a href="#" class="mark_as_unread" value='.$notification_id.'">Mark as unread</a>';
+
+        }
+
+
 
     }
 

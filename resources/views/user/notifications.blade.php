@@ -10,8 +10,12 @@
                 <td class="notification_date">
                     {{ date("F j, Y, g:i a",strtotime($notification->created_at)) }}
                 </td>
-                <td class="mark_as_unread">
-                    <a href="#" value="{{$notification->id}}">Mark as unread</a>
+                <td style="width: 150px;">
+                    @if($notification->seen)
+                        <a class="mark_as_unread" href="#" value="{{$notification->id}}">Mark as unread</a>
+                    @else
+                        <a class="mark_as_read" href="#" value="{{$notification->id}}">Mark as read</a>
+                    @endif
                 </td>
             </tr>
         @endforeach
@@ -28,22 +32,50 @@
         }
     </style>
     <script>
+        $(document).ready(function(){
+            $('.mark_as_read').hide();
+            $('.mark_as_unread').hide();
+        });
         $('.notification_desc').click(function(){
             window.location.href = $(this).parent().attr('href');
         });
         $('.notification_date').click(function(){
             window.location.href = $(this).parent().attr('href');
         });
-        $('.mark_as_unread a').click(function(){
+        $(document).on('click','.mark_as_unread',function(){
             var notification_id = $(this).attr('value');
+            var notification = $(this);
             $.ajax({
-                'url' : "{{url('/mark_notification/')}}"+notification_id,
+                'url' : "{{url('/mark_notification')}}"+"/"+notification_id+"/0",
                 'success' : function(data)
                 {
-                    
+                   notification.parent().html(data);
                 }
             });
         });
+
+        $(document).on('click','.mark_as_read',function(){
+            var notification_id = $(this).attr('value');
+            var notification = $(this);
+            $.ajax({
+                'url' : "{{url('/mark_notification')}}"+"/"+notification_id+"/1",
+                'success' : function(data)
+                {
+                    notification.parent().html(data);
+                }
+            });
+        });
+
+
+        $(document).on('mouseenter','.notification_row',function(){
+            $(this).find('.mark_as_unread').show();
+            $(this).find('.mark_as_read').show();
+        });
+        $(document).on('mouseleave','.notification_row',function(){
+            $(this).find('.mark_as_unread').hide();
+            $(this).find('.mark_as_read').hide();
+        });
+
     </script>
 
 @endsection
