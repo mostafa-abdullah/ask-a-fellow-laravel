@@ -13,16 +13,20 @@ use App\AnswerVote;
 use App\Question;
 use App\QuestionVote;
 use App\Notification;
+use App\QuestionReport;
+use App\AnswerReport;
 
 class AjaxController extends Controller
 {
     public function __construct(){
-//        $this->middleware('ajax');
+        $this->middleware('ajax');
         $this->middleware('auth', ['only' => [
             'vote_answer',
             'vote_question',
             'view_notifications_partial',
-            'mark_notification'
+            'mark_notification',
+            'send_report_answer',
+            'send_report_question'
         ]]);
     }
 
@@ -145,6 +149,51 @@ class AjaxController extends Controller
 
         }
 
+
+
+    }
+
+
+    public function send_report_question(Request $request)
+    {
+        $reason = $request->reason;
+        $other = $request->other;
+        if($reason == 'Other')
+            $reason = $other;
+        $question_id = $request->question_id;
+        if(!$reason)
+            $reason = 'Unknown';
+
+        $report = new QuestionReport;
+        $report->report = $reason;
+        $report->user_id = Auth::user()->id;
+        $report->question_id = $request->question_id;
+        $report->link = url('/answers/'.$question_id);
+        $report->save();
+        return "Report submitted successfully";
+
+
+    }
+
+
+    public function send_report_answer(Request $request)
+    {
+        $reason = $request->reason;
+        $other = $request->other;
+        if($reason == 'Other')
+            $reason = $other;
+
+        if(!$reason)
+            $reason = 'Unknown';
+
+        $answer_id = $request->answer_id;
+        $report = new AnswerReport;
+        $report->report = $reason;
+        $report->user_id = Auth::user()->id;
+        $report->answer_id = $request->answer_id;
+        $report->link = url('/answers/'.Answer::find($answer_id)->question_id);
+        $report->save();
+        return "Report submitted successfully";
 
 
     }

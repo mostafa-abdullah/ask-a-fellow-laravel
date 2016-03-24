@@ -78,8 +78,8 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::post('/feedback','AppController@send_feedback');
-    Route::get('/report_question','AppController@send_report_question');
-    Route::get('/report_answer','AppController@send_report_answer');
+    Route::get('/report_question','AjaxController@send_report_question');
+    Route::get('/report_answer','AjaxController@send_report_answer');
     //
 });
 
