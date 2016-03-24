@@ -50,6 +50,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/admin/update_major/{id}','AdminController@update_major_page');
     Route::post('/admin/update_course/{id}','AdminController@update_course');
     Route::post('/admin/update_major/{id}','AdminController@update_major');
+    Route::get('/admin/feedbacks','AdminController@view_feedbacks');
 
 
     Route::get('/browse','AppController@browse');
@@ -75,7 +76,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/subscriptions','AppController@subscription_page');
     Route::post('/subscriptions','AppController@subscribe_to_courses');
 
-
+    Route::get('/feedbacks','AdminController@view_feedbacks');
     Route::post('/feedback','AppController@send_feedback');
     //
 });

@@ -48,10 +48,8 @@
                         <ul class="dropdown-menu" style="background-color: #FFAF6C;">
                             <li><a href="{{url('user/'.Auth::user()->id)}}">Profile</a></li>
 
-                            @if(Auth::user()->role == 0)
-                                <li><a href="#">Send Feedback</a></li>
-                            @else
-                                <li><a href="#">View Feedbacks</a></li>
+                            @if(Auth::user()->role > 0)
+                                <li><a href="{{url('/admin/feedbacks')}}">View Feedbacks</a></li>
                                 <li><a href="{{url('/admin')}}">Admin Roles</a></li>
                             @endif
                             <li role="separator" class="divider"></li>

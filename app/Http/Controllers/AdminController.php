@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Feedback;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -133,6 +134,13 @@ class AdminController extends Controller
         $major->major = $request->major;
         $major->save();
         return redirect('admin/add_major');
+    }
+
+
+    public function view_feedbacks()
+    {
+        $feedbacks = Feedback::all();
+        return view('admin.feedbacks',compact(['feedbacks']));
     }
 
 
