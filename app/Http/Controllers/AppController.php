@@ -200,7 +200,8 @@ class AppController extends Controller
         ]);
 
         Auth::user()->subscribed_courses()->detach();
-        Auth::user()->subscribe_to_courses(array_unique($request->course));
+        if($request->course)
+            Auth::user()->subscribe_to_courses(array_unique($request->course));
 
         return redirect('/home');
     }

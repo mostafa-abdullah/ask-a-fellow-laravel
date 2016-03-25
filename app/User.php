@@ -160,6 +160,23 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * returns list of questions to appear in the homepage
+     *
+     */
+    public function home_questions()
+    {
+        $courses = $this->subscribed_courses()->get(['courses.id']);
+        $courses_ids = array();
+        foreach($courses as $course)
+        {
+            $courses_ids[] = $course->id;
+        }
+        $questions = Question::whereIn('course_id',$courses_ids);
+        return $questions;
+    }
+
+
 
 
     /**
