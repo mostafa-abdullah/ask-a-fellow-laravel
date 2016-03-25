@@ -21,7 +21,7 @@
                 <label for="last_name" class="col-sm-3 control-label">Major</label>
                 <div class="col-sm-7">
                     <select class="form-control" name="major" id="major">
-                        <option value="0">Hide Major</option>
+                        <option value="">Hide Major</option>
                         @foreach($majors as $major)
                             <option value="{{$major->id}}" {{$user->major && $user->major->id == $major->id?'selected':''}}>{{$major->major}}</option>
                         @endforeach

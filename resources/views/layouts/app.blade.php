@@ -84,6 +84,13 @@
             </div>
         </div>
     @endif
+    @if(session('register'))
+        <div class="flash-message feedback_flash">
+            <div class="alert alert-success" style="z-index: 20;left:50%; margin-left:-25%;width:50%; text-align: center; position: fixed; top:100px;">
+                {{session('register')}}
+            </div>
+        </div>
+    @endif
     @include('errors')
     @yield('content')
 
@@ -234,6 +241,9 @@
                 ($('#quick_submit').show());
 
         });
+        setTimeout(function(){
+            $('.feedback_flash').fadeOut('slow');
+        },3000);
     });
 
     $('#quick_submit').click(function(){
