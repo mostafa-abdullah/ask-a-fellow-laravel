@@ -19,6 +19,7 @@ $pages = ceil($count_questions/$take);
 
         <h2>Hello {{Auth::user()->first_name}}!</h2>
         <p>Showing questions from your <a href="{{url('/subscriptions')}}">subscribed courses</a>.</p>
+        <h3><a href="{{url('/browse')}}">Browse all courses</a></h3>
         <hr>
 
         @if(count($questions) == 0)
