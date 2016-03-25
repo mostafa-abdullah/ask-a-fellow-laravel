@@ -54,7 +54,8 @@
     <div class="description_and_image">
         <div class="name_and_description">
             <h1>Ask a Fellow</h1>
-            <p>Slogan slogan slogan slogan slogan slogan slogan slogan slogan</p>
+            <p>An educational social platform made for GUC students</p>
+            <br>
         </div>
         <div class="header_image"></div>
     </div>
@@ -164,23 +165,34 @@
 </header>
 <div class="center-block" id="main_content">
 
-    <div class="flexsearch center-block">
-        <h1>What are you looking for?</h1>
-        <div class="flexsearch--wrapper">
-            <form class="flexsearch--form" action="#" method="post">
-                <div class="flexsearch--input-wrapper">
-                    <input class="flexsearch--input" type="search" placeholder="questions, answers, courses ...">
-                </div>
-                <input class="flexsearch--submit" type="submit" value="&#10140;"/>
-            </form>
+    <div class="center-block" style="text-align:center;">
+        <h2>Looking for a specific course?</h2>
+        <div>
+
+
+
+
+                <select name="quick_select" id="states" style="width:40%">
+                    <option> </option>
+                    @foreach(App\Course::all() as $course)
+                        <option value="{{$course->id}}">{{$course->course_name}}</option>
+                    @endforeach
+                </select>
+                {{--<input class="flexsearch--submit" type="submit" value="&#10140;"/>--}}
+                <input class="btn btn-link" type="button" id="quick_submit" value="Go">
+
         </div>
+
+
+        <h2><a href="{{url('/browse')}}">Or browse all courses.</a></h2>
+
     </div>
 
 
     <div style="text-align: center"class="section_2">
         <h1>Ask a Fellow</h1>
         <p style="font-size: 16px">
-            Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description
+             Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description
         </p>
     </div>
 </div>
@@ -576,3 +588,36 @@
         }
     })();
 </script>
+
+
+<script>
+    $(document).ready(function() {
+        if ($('#states :selected').text()==' '){
+            ($('#quick_submit').hide());
+            //($('#go').hide());
+        }
+        $("#states").select2({
+            placeholder: "Select a State",
+            allowClear: true
+        });
+        $("#states").change(function() {
+            if ($('#states :selected').text()==' '){
+                ($('#quick_submit').hide());
+
+                //($('#go').hide());
+            }
+            else
+                ($('#quick_submit').show());
+
+        });
+    });
+
+    $('#quick_submit').click(function(){
+       var course = $('#states').val();
+        if(course)
+                window.location.href = "{{url('/browse')}}"+"/"+course;
+    });
+
+</script>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet"/>
+<script src="{{asset('js/select2.js')}}"></script>

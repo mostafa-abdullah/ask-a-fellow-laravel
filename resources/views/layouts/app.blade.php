@@ -33,11 +33,15 @@
                 <!-- <li class="link-separator"><a>|</a></li> -->
                 <li><a href="{{url('/how_it_works')}}">How it works</a></li>
             </ul>
-            <form method="get" action="" class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input id="search_bar" style="width: 300px;" name="key" type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" id="search_button" class="btn btn-default">Search</button>
+            <form style="width:30%; color:black;" method="get" action="" class="navbar-form navbar-left" role="search">
+                <select name="quick_select" id="states" style="width:80%; color:black;">
+                    <option>Quick course finder</option>
+                    @foreach(App\Course::all() as $course)
+                        <option value="{{$course->id}}">{{$course->course_name}}</option>
+                    @endforeach
+                </select>
+                {{--<input class="flexsearch--submit" type="submit" value="&#10140;"/>--}}
+                <input class="btn btn-link" type="button" id="quick_submit" value="Go">
             </form>
 
             @if(Auth::user())
@@ -186,6 +190,10 @@
         /*box-shadow: 0px 5px 10px -1px #888888;*/
         z-index: 1;
     }
+    .navbar .select2-choice
+    {
+        color:black !important;
+    }
 
     @media (min-width:777px) and (max-width: 1000px) {
         .navbar ul.navbar-left
@@ -206,3 +214,34 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        if ($('#states :selected').val()=='Quick course finder'){
+            ($('#quick_submit').hide());
+            //($('#go').hide());
+        }
+        $("#states").select2({
+            placeholder: "Select a State",
+            allowClear: true
+        });
+        $("#states").change(function() {
+            if ($('#states :selected').text()=='Quick course finder'){
+                ($('#quick_submit').hide());
+
+                //($('#go').hide());
+            }
+            else
+                ($('#quick_submit').show());
+
+        });
+    });
+
+    $('#quick_submit').click(function(){
+        var course = $('#states').val();
+        if(course)
+            window.location.href = "{{url('/browse')}}"+"/"+course;
+    });
+
+</script>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet"/>
+<script src="{{asset('js/select2.js')}}"></script>
