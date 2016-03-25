@@ -52,7 +52,7 @@ class UserController extends Controller
         $this->validate($request, [
             'first_name' => 'alpha|required',
             'last_name' => 'alpha|required',
-            'major' => 'numeric|exists:majors,id',
+            'major' => 'sometimes|numeric|exists:majors,id',
             'semester' => 'numeric|min:0|max:10',
             'profile_picture' => 'image|max:1000'
 

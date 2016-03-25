@@ -120,7 +120,9 @@ $pages = ceil($count_questions/$take);
 
         <nav class="center-block" style="text-align: center">
             <ul class="pagination">
-                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a> </li>
+                @if($page > 0)
+                    <li><a href="?page={{$page - 1}}&take={{$take}}" aria-label="Previous"><span aria-hidden="true">«</span></a> </li>
+                @endif
                 @for($i = 0; $i < $pages; $i++)
                     @if($page == $i)
                         <li class="active"><a href="?page={{$i}}&take={{$take}}">{{$i + 1}} <span class="sr-only">(current)</span></a></li>
@@ -129,7 +131,9 @@ $pages = ceil($count_questions/$take);
                     @endif
 
                 @endfor
-                <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                @if($page < $pages - 1)
+                    <li class="{{$page >= $pages-1? 'disabled':''}}"><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                @endif
             </ul>
         </nav>
 

@@ -80,11 +80,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/feedback','AppController@send_feedback');
     Route::get('/report_question','AjaxController@send_report_question');
     Route::get('/report_answer','AjaxController@send_report_answer');
+    Route::get('/verify/{token}','AuthController@verify');
     //
 });
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
-
+    Route::get('/register/verify/{token}','Auth\AuthController@verify');
     Route::get('/home', 'HomeController@index');
 });
