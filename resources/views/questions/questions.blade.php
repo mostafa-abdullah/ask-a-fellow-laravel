@@ -1,23 +1,14 @@
 <?php
-$order = 'latest';
-if(isset($_GET['sort']))
-    $order = $_GET['sort'];
-$allowed = ['votes','oldest','latest','answers'];
-if(!in_array($order,$allowed))
-    $order = 'latest';
 
-
-$questions_ordered = array();
-if($order == 'votes')
-    $questions_ordered = $questions->orderBy('votes','desc')->orderBy('created_at','desc')->get();
-elseif($order == 'oldest')
-    $questions_ordered = $questions->orderBy('created_at','asc')->get();
-elseif($order == 'latest')
-    $questions_ordered = $questions->orderBy('created_at','desc')->get();
-else if($order == 'answers')
-    $questions_ordered =$questions->orderByRaw("(SELECT COUNT(*) FROM answers WHERE question_id = questions.id) DESC    ")->orderBy('created_at','desc')->get();
 //die($questions_ordered);
+$page = 0;
+if(isset($_GET['page']) && $_GET['page'] > 0)
+    $page = $_GET['page'];
+$take = 10;
+if(isset($_GET['take']) && $_GET['take'] > 0)
+    $take = $_GET['take'];
 
+$pages = ceil($count_questions/$take);
 
 
 ?>
@@ -26,7 +17,7 @@ else if($order == 'answers')
 @section('content')
     <div class="container" style="width:100%;">
         <div class="questions">
-            <h3 style="margin-left: 50px">Showing {{count($questions->get())}} out of {{$num_questions}} Question(s).</h3>
+            <h3 style="margin-left: 50px">Showing {{count($questions_ordered)}} out of {{$count_questions}} Question(s).</h3>
 
             <div id="filtration_form">
                 <form class="" action="">
@@ -47,7 +38,24 @@ else if($order == 'answers')
 
 
 
+            <nav class="center-block" style="text-align: center">
+                <ul class="pagination">
+                    @if($page > 0)
+                        <li><a href="?page={{$page - 1}}&take={{$take}}" aria-label="Previous"><span aria-hidden="true">«</span></a> </li>
+                    @endif
+                    @for($i = 0; $i < $pages; $i++)
+                        @if($page == $i)
+                            <li class="active"><a href="?page={{$i}}&take={{$take}}">{{$i + 1}} <span class="sr-only">(current)</span></a></li>
+                        @else
+                            <li><a href="?page={{$i}}&take={{$take}}">{{$i + 1}}</a></li>
+                        @endif
 
+                    @endfor
+                    @if($page < $pages - 1)
+                        <li class="{{$page >= $pages-1? 'disabled':''}}"><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                    @endif
+                </ul>
+            </nav>
             @foreach($questions_ordered as $question)
                <div href="{{url('answers/'.$question->id)}}" class="media question">
                     <div style="text-align: center" class="media-left">
@@ -96,6 +104,7 @@ else if($order == 'answers')
                 </div>
 
             @endforeach
+
             <div id="report_modal" class="modal fade" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
                     <div class=""  style="background-color:rgba(255,255,255,0.9)">
@@ -128,6 +137,7 @@ else if($order == 'answers')
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div>
+
             <form id="post_question_form" action="" method="POST">
                 {{csrf_field()}}
                 <div class="form-group">
@@ -136,7 +146,9 @@ else if($order == 'answers')
                     <input type="submit" value="Post Question" class="btn btn-default pull-right" id="post_question_submit">
                 </div>
             </form>
+
         </div>
+
     </div>
 
 
@@ -218,6 +230,18 @@ else if($order == 'answers')
             background-color: #CCB69C;
             /*border: 1px solid #CCB69C !important;*/
 
+        }
+
+        .pagination a
+        {
+            color: #E66900 !important;
+            background-color: #FDF9F3 !important;
+        }
+        .pagination .active a
+        {
+            background-color: #FFAF6C !important;
+            border-color: #CC8C39;
+            color: #BD5D0D !important;
         }
 
     </style>
