@@ -15,10 +15,11 @@ $pages = ceil($count_questions/$take);
 
 @section('content')
 
-    <div class="container" style="padding-left: 50px; width: 100%;">
+    <div class="container" style="margin-top:-80px;padding-left: 50px; width: 100%;">
 
         <h2>Hello {{Auth::user()->first_name}}!</h2>
         <p>Showing questions from your <a href="{{url('/subscriptions')}}">subscribed courses</a>.</p>
+        <h4 class="pull-right"><a href="{{url('/browse')}}">Ask a question</a></h4>
         <h3><a href="{{url('/browse')}}">Browse all courses</a></h3>
         <hr>
 
@@ -78,10 +79,11 @@ $pages = ceil($count_questions/$take);
                 </div>
                 <div class="media-body" style="">
                     <h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3>
+                    <h5 style="color:green">{{$question->course->course_name}}</h5>
                     <div class="question_text">
                         {{$question->question}}
                     </div>
-                    <p style="font-weight: bold; font-style: italic; ">{{ date("F j, Y, g:i a",strtotime($question->created_at)) }} </p>
+                    <p style=" font-style: italic; ">{{ date("F j, Y, g:i a",strtotime($question->created_at)) }} </p>
                     @if(count($question->answers) > 0)
                         <div class="media answer">
                             <div style="text-align: center" class="media-left">
@@ -102,7 +104,7 @@ $pages = ceil($count_questions/$take);
                                 <div class="answer_text">
                                     {{$question->answers()->orderBy('answers.votes','desc')->first()->answer}}
                                 </div>
-                                <p style="font-weight: bold; font-style: italic; ">{{ date("F j, Y, g:i a",strtotime($question->answers()->orderBy('answers.votes','desc')->first()->created_at)) }} </p>
+                                <p style=" font-style: italic; ">{{ date("F j, Y, g:i a",strtotime($question->answers()->orderBy('answers.votes','desc')->first()->created_at)) }} </p>
                             </div>
 
                         </div>
@@ -149,6 +151,8 @@ $pages = ceil($count_questions/$take);
             width: 80%;
             /*min-width: 200px;*/
             margin-bottom: 10px;
+            border: 1px solid #E8DAC9;
+            border-radius: 10px;
         }
         .question img
         {
@@ -168,7 +172,10 @@ $pages = ceil($count_questions/$take);
 
         .question .question_text
         {
-            font-size: 15px;
+            font-size: 18px;
+            background-color: #F9EBDA;
+            padding: 15px;
+            /*display: inline-block;*/
         }
 
 
