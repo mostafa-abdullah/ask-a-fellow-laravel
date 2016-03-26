@@ -31,7 +31,8 @@ class AppController extends Controller
             'delete_answer',
             'view_notifications',
             'subscribe_to_courses',
-            'subscription_page'
+            'subscription_page',
+            'post_question_all'
         ]]);
 
     }
@@ -98,7 +99,7 @@ class AppController extends Controller
     public function list_questions_all($major_id, $semester)
     {
         $major = Major::find($major_id);
-        $courses = $major->courses()->where('semester','=',$semester)->get(['courses.id']);
+        $courses = $major->courses()->where('semester','=',$semester)->get(['courses.id','courses.course_name']);
         $ids = array();
         foreach($courses as $course)
             $ids[] = $course->id;
@@ -115,12 +116,42 @@ class AppController extends Controller
             $take = 10;
         if($page <= 0)
             $page = 0;
-        $questions = Question::whereIn('course_id',$ids)->skip($page * $take)->take($take);
+        $questions = Question::whereIn('course_id',$ids);
         $all = true;
-        $num_questions = count(Question::whereIn('course_id',$ids)->get());
-        return view('questions.questions',compact(['questions','all','num_questions']));
+        $count_questions = count($questions->get());
+        $questions = $questions->skip($page * $take)->take($take);
+
+        $order = 'latest';
+        if(isset($_GET['sort']))
+            $order = $_GET['sort'];
+        $allowed = ['votes','oldest','latest','answers'];
+        if(!in_array($order,$allowed))
+            $order = 'latest';
+
+
+
+        $questions_ordered = array();
+        if($order == 'votes')
+            $questions_ordered = $questions->orderBy('votes','desc')->orderBy('created_at','desc')->get();
+        elseif($order == 'oldest')
+            $questions_ordered = $questions->orderBy('created_at','asc')->get();
+        elseif($order == 'latest')
+            $questions_ordered = $questions->orderBy('created_at','desc')->get();
+        else if($order == 'answers')
+            $questions_ordered =$questions->orderByRaw("(SELECT COUNT(*) FROM answers WHERE question_id = questions.id) DESC")->orderBy('created_at','desc')->get();
+        return view('questions.questions',compact(['questions_ordered','all','count_questions','courses']));
     }
 
+
+    public function post_question_all(Request $request,$major, $semester)
+    {
+        $this->validate($request,[
+            'question' => 'required',
+            'course' => 'required|exists:courses,id'
+        ]);
+        $this->post_question($request,$request->course);
+        return redirect('/browse/'.$major.'/'.$semester);
+    }
 
     public function post_question(Request $request, $course_id)
     {

@@ -15,6 +15,11 @@
 
         </tr>
     @endforeach
+    <tr>
+        <td>
+            <a href="{{url('/browse/'.$major->id.'/'.$semester)}}">View questions from all courses</a>
+        </td>
+    </tr>
 </table>
 
 <style>

@@ -10,6 +10,10 @@ if(isset($_GET['take']) && $_GET['take'] > 0)
 
 $pages = ceil($count_questions/$take);
 
+$sort = 'latest';
+if(isset($_GET['sort']))
+    $sort = $_GET['sort'];
+
 
 ?>
 
@@ -24,10 +28,10 @@ $pages = ceil($count_questions/$take);
                     <div class="form-group">
                         <label class="form-label">Order by: </label>
                         <select name="sort" class="form-control">
-                            <option {{isset($_GET['sort']) && $_GET['sort'] == 'votes'?'selected':''}} value="votes">Votes</option>
-                            <option {{isset($_GET['sort']) && $_GET['sort'] == 'answers'?'selected':''}} value="answers">Number of answers</option>
-                            <option {{isset($_GET['sort']) && $_GET['sort'] == 'oldest'?'selected':''}} value="oldest">Oldest</option>
-                            <option {{isset($_GET['sort']) && $_GET['sort'] == 'latest'?'selected':''}} value="latest">Latest</option>
+                            <option {{isset($sort) && $sort == 'votes'?'selected':''}} value="votes">Votes</option>
+                            <option {{isset($sort) && $sort == 'answers'?'selected':''}} value="answers">Number of answers</option>
+                            <option {{isset($sort) && $sort == 'oldest'?'selected':''}} value="oldest">Oldest</option>
+                            <option {{isset($sort) && $sort == 'latest'?'selected':''}} value="latest">Latest</option>
                         </select>
                         <label class="form-label">Questions per page: </label>
                         <input class="form-control" type="number" name="take" value="{{isset($_GET['take'])?$_GET['take']:10}}">
@@ -45,9 +49,9 @@ $pages = ceil($count_questions/$take);
                     @endif
                     @for($i = 0; $i < $pages; $i++)
                         @if($page == $i)
-                            <li class="active"><a href="?page={{$i}}&take={{$take}}">{{$i + 1}} <span class="sr-only">(current)</span></a></li>
+                            <li class="active"><a href="?page={{$i}}&take={{$take}}&sort={{$sort}}">{{$i + 1}} <span class="sr-only">(current)</span></a></li>
                         @else
-                            <li><a href="?page={{$i}}&take={{$take}}">{{$i + 1}}</a></li>
+                            <li><a href="?page={{$i}}&take={{$take}}&sort={{$sort}}">{{$i + 1}}</a></li>
                         @endif
 
                     @endfor
@@ -94,6 +98,9 @@ $pages = ceil($count_questions/$take);
                             </div>
                         @endif
                         <h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3>
+                            @if(isset($all))
+                                <h5 style="color:green">{{$question->course->course_code}}</h5>
+                            @endif
                         <div class="question_text">
                             {{$question->question}}
                         </div>
@@ -141,9 +148,20 @@ $pages = ceil($count_questions/$take);
             <form id="post_question_form" action="" method="POST">
                 {{csrf_field()}}
                 <div class="form-group">
-                    <label for="post_answer_text">Ask a question:</label>
+                    <label for="post_question_text">Ask a question:</label>
                     <textarea required class="form-control" id="post_question_text" name="question" placeholder="Type your question here"></textarea>
                     <input type="submit" value="Post Question" class="btn btn-default pull-right" id="post_question_submit">
+                    @if(isset($all))
+                        <div class="form-group" style="width:50%;">
+                            <label for="course" style="">Post question to: </label>
+                            <select id="course" class="form-control" name="course">
+                                @foreach($courses as $course)
+                                    <option value="{{$course->id}}">{{$course->course_name}}</option>
+
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
                 </div>
             </form>
 

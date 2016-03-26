@@ -37,7 +37,7 @@ class AjaxController extends Controller
 //            return 'x';
         $major = Major::find($major);
         $courses = $major->courses()->where('semester','=',$semester)->get();
-        return view('browse.courses_listing',compact(['courses']));
+        return view('browse.courses_listing',compact(['courses','major','semester']));
     }
 
     public function vote_answer($answer_id, $type)

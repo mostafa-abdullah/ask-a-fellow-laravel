@@ -58,6 +58,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/browse/{course_id}','AppController@list_questions');
     Route::post('/browse/{course_id}','AppController@post_question');
     Route::get('/browse/{major}/{semester}','AppController@list_questions_all');
+    Route::post('/browse/{major}/{semester}','AppController@post_question_all');
     Route::get('/answers/{question_id}','AppController@inside_question');
     Route::post('/answers/{question_id}','AppController@post_answer');
     Route::get('/delete_answer/{id}','AppController@delete_answer');
