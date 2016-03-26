@@ -265,6 +265,33 @@
         }
 
 
+        @media (max-width:800px)
+        {
+            .question,.answer,#post_answer_form
+            {
+                margin-left:-30px;
+                min-width: 280px;
+                width: 90%;
+
+            }
+
+            h1,h2
+            {
+                font-size: 23px;
+            }
+
+
+            .question_text
+            {
+                font-size:10px;
+            }
+
+
+
+
+        }
+
+
 
     </style>
 

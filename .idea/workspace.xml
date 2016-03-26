@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d02d1184-f21d-43b4-abbd-dbdc7ecabf08" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/views/admin/index.blade.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AnswerReport.php" afterPath="$PROJECT_DIR$/app/AnswerReport.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/QuestionReport.php" afterPath="$PROJECT_DIR$/app/QuestionReport.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/User.php" afterPath="$PROJECT_DIR$/app/User.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/home.blade.php" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/questions/answers.blade.php" afterPath="$PROJECT_DIR$/resources/views/questions/answers.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/questions/questions.blade.php" afterPath="$PROJECT_DIR$/resources/views/questions/questions.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" />
     </list>
     <ignored path="Ask a Fellow 2.0.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,6 +37,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="home.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-13.458333">
+              <caret line="226" column="8" selection-start-line="226" selection-start-column="8" selection-end-line="235" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -52,10 +59,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reports.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="questions.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/questions/questions.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.708333">
+              <caret line="268" column="7" selection-start-line="268" selection-start-column="7" selection-end-line="279" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="answers.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/questions/answers.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.31703204">
+              <caret line="275" column="13" selection-start-line="275" selection-start-column="13" selection-end-line="275" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reports.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/reports.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.68296796">
+            <state vertical-scroll-proportion="-16.875">
               <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
               <folding />
             </state>
@@ -92,45 +119,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/list.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.25">
-              <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-              <folding>
-                <element signature="e#62#84#0#HTML" expanded="true" />
-                <element signature="e#140#179#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthenticateAdmin.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Middleware/AuthenticateAdmin.php">
+      <file leaf-file-name="welcome.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-8.75">
-              <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Authenticate.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Middleware/Authenticate.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="add_course.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/add_course.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <caret line="466" column="4" selection-start-line="466" selection-start-column="4" selection-end-line="483" selection-end-column="5" />
+              <folding>
+                <element signature="n#style#0;n#a#0;n#form#1;n#div#3;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -163,12 +160,9 @@
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/welcome.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AppController.php" />
-        <option value="$PROJECT_DIR$/resources/views/questions/questions.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AjaxController.php" />
         <option value="$PROJECT_DIR$/resources/views/browse/courses_listing.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/home.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/list.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
@@ -177,6 +171,10 @@
         <option value="$PROJECT_DIR$/app/QuestionReport.php" />
         <option value="$PROJECT_DIR$/app/AnswerReport.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/reports.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/welcome.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/home.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/questions/questions.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/questions/answers.blade.php" />
       </list>
     </option>
   </component>
@@ -258,6 +256,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ask a Fellow 2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ask a Fellow 2.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="questions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -500,7 +520,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Ask a Fellow" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="admin&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/Controllers/AdminController.php&#10;routes&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/routes.php&#10;rou&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/routes.php&#10;home&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/home.blade.php&#10;ajax&#9;null&#9;null&#10;course&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/browse/courses_listing.blade.php&#10;index&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/browse/index.blade.php&#10;app&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/Controllers/AppController.php&#10;welcome&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/welcome.blade.php&#10;login.b&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/auth/login.blade.php&#10;questions.&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/questions/questions.blade.php&#10;auth&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/Controllers/Auth/AuthController.php&#10;update&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/user/update.blade.php&#10;userC&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/Controllers/UserController.php&#10;au&#9;null&#9;null&#10;app.bl&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/layouts/app.blade.php&#10;user&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/User.php&#10;USER&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/User.php&#10;add_v&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/database/migrations/2016_03_25_211504_add_verified_to_users.php&#10;mail&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/config/mail.php&#10;.env&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/.env" />
+    <property name="SearchEverywhereHistoryKey" value="home&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/home.blade.php&#10;welcome&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/welcome.blade.php&#10;admin&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/Controllers/AdminController.php&#10;routes&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/routes.php&#10;rou&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/routes.php&#10;ajax&#9;null&#9;null&#10;course&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/browse/courses_listing.blade.php&#10;index&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/browse/index.blade.php&#10;app&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/Controllers/AppController.php&#10;login.b&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/auth/login.blade.php&#10;questions.&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/questions/questions.blade.php&#10;auth&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/Controllers/Auth/AuthController.php&#10;update&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/user/update.blade.php&#10;userC&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/Http/Controllers/UserController.php&#10;au&#9;null&#9;null&#10;app.bl&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/resources/views/layouts/app.blade.php&#10;user&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/User.php&#10;USER&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/app/User.php&#10;add_v&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/database/migrations/2016_03_25_211504_add_verified_to_users.php&#10;mail&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/config/mail.php&#10;.env&#9;FILE&#9;file:///home/mostafa_abdullah/work/Ask a Fellow 2.0/Ask a Fellow 2.0/.env" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -590,13 +610,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bootstrap/autoload.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Answer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -814,26 +827,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.583334">
-          <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="109" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="109" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/questions/questions.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="101" column="54" selection-start-line="101" selection-start-column="54" selection-end-line="101" selection-end-column="54" />
           <folding />
         </state>
       </provider>
@@ -874,14 +871,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="164" column="113" selection-start-line="164" selection-start-column="113" selection-end-line="164" selection-end-column="113" />
           <folding />
         </state>
       </provider>
@@ -973,8 +962,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/reports.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68296796">
+        <state vertical-scroll-proportion="-16.875">
           <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.75">
+          <caret line="466" column="4" selection-start-line="466" selection-start-column="4" selection-end-line="483" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#form#1;n#div#3;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.458333">
+          <caret line="226" column="8" selection-start-line="226" selection-start-column="8" selection-end-line="235" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/questions/questions.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.708333">
+          <caret line="268" column="7" selection-start-line="268" selection-start-column="7" selection-end-line="279" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/questions/answers.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31703204">
+          <caret line="275" column="13" selection-start-line="275" selection-start-column="13" selection-end-line="275" selection-end-column="13" />
           <folding />
         </state>
       </provider>

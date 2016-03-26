@@ -200,8 +200,10 @@
 
     <div style="text-align: center"class="section_2">
         <h1>Ask a Fellow</h1>
-        <p style="font-size: 16px">
-             Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description
+        <p style="font-size: 20px">
+            Ask a fellow is an educational social network connecting students from the GUC.<br>
+            It's the right place to ask your questions and get answers from your colleagues.<br>
+            No more Facebook study groups hassle, welcome to your learning environment!<br>
         </p>
     </div>
 </div>
@@ -221,7 +223,8 @@
     header
     {
         width: 100%;
-        height: 500px;
+        min-height: 500px;
+
         background-color: #FF953D;
         box-shadow: 0px 3px 10px #888888;
         /*padding: 00px;*/
@@ -315,7 +318,7 @@
         margin-left: 100px;
         background: url('art/landing_background.png') no-repeat;
         background-size: 100% auto;
-        height: 80%;
+        min-height: 300px;
         width: 57%;
         bottom: 00px;
         opacity: 0.7;
@@ -326,6 +329,7 @@
     {
         margin-right: 100px;
         width: 30%;
+        min-width:350px;
         height: 100%;
         background-color: rgba(249, 195, 130, 0.55);
         float: right;
@@ -445,6 +449,39 @@
     }
 
 
+    @media (max-width: 1100px) {
+        .description_and_image h1
+        {
+            font-size:46px;
+        }
+        .description_and_image p{
+            font-size: 18px;
+        }
+        .description_and_image
+        {
+            width: 30%;
+        }
+    }
+
+
+    @media (max-width:800px)
+    {
+        .header_image
+        {
+            display: none;
+        }
+        .description_and_image
+        {
+
+            width:80%;
+
+        }
+        header
+        {
+            display: inline-block;
+        }
+
+    }
     @media (max-width: 500px) {
         .flexsearch h1
         {
@@ -503,6 +540,11 @@
         #main_content h3
         {
             font-size: 18px;
+        }
+
+        h2
+        {
+            font-size: 22px;
         }
 
 

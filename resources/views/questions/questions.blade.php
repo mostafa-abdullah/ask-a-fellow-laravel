@@ -261,6 +261,23 @@ if(isset($_GET['sort']))
             border-color: #CC8C39;
             color: #BD5D0D !important;
         }
+        #filtration_form
+        {
+            min-width: 150px;
+        }
+
+        @media (max-width:800px)
+        {
+            .question, #post_question_form
+            {
+                margin-left:-30px;
+                min-width: 300px;
+                width: 90%;
+            }
+
+
+
+        }
 
     </style>
 
