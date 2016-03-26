@@ -209,6 +209,25 @@ class User extends Authenticatable
         $answerVote->save();
     }
 
+    /**
+     * Returns a list of reports on questions submitted by this user
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+    public function question_reports()
+    {
+        return $this->hasMany('App\QuestionReport');
+    }
+
+    /**
+     * Returns a list of reports on answers submitted by this user
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answer_reports()
+    {
+        return $this->hasMany('App\AnswerReport');
+    }
+
 
 
     /*

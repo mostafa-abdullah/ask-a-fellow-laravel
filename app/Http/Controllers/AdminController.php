@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\AnswerReport;
 use App\Feedback;
+use App\QuestionReport;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +20,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.index');
+        return view('admin.list');
     }
 
     public function add_course_page()
@@ -141,6 +143,13 @@ class AdminController extends Controller
     {
         $feedbacks = Feedback::all();
         return view('admin.feedbacks',compact(['feedbacks']));
+    }
+
+    public function view_reports()
+    {
+        $question_reports = QuestionReport::all();
+        $answer_reports = AnswerReport::all();
+        return view('admin.reports',compact(['question_reports','answer_reports']));
     }
 
 
