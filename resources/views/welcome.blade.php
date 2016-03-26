@@ -162,6 +162,7 @@
                     </span>
             @endif
         </span>
+            <a class="pull-right" style="text-align:right" href="{{url('/password/reset')}}">Forgot password?</a>
             <div class="form-group">
                 <div class=" col-sm-10" style="margin-top:20px; margin-left:10px;">
                     <input type="submit" class="btn btn-default submit" style="background-color:#FF953D; border: 1px solid #CC953D;float:right;" href="#" value="Login" id="login_submit">

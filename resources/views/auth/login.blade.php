@@ -27,6 +27,7 @@
                     </span>
                 @endif
         </span>
+        <a class="pull-right" style="text-align:right" href="{{url('/password/reset')}}">Forgot password?</a>
         <div class="form-group pull-left">
             <div>
                 <div class="checkbox">
@@ -35,6 +36,7 @@
                     </label>
                 </div>
             </div>
+
         </div>
         <div class="form-group">
             <div class=" col-sm-10" style="margin-top:20px; margin-left:10px;">
