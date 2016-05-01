@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'mostafaabdullahahmed@gmail.com', 'name' => 'Mostafa Abdullah'],
+    'from' => ['address' => 'askafellow.techhub@gmail.com', 'name' => 'Ask a Fellow'],
 
     /*
     |--------------------------------------------------------------------------

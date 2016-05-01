@@ -28,7 +28,7 @@
         <div class=".col-sm-4 col-md-4">
             <ul>
                 <li>
-                    <a href="mailto:mostafaabdullahahmed@gmail.com?subject=Ask a Fellow">Contact us</a>
+                    <a href="mailto:askafellow.techhub@gmail.com?subject=Ask a Fellow">Contact us</a>
                 </li>
                 <li>
                     <a data-toggle="modal" data-target="#feedback_modal">Send Feedback</a>
