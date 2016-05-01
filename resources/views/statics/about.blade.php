@@ -2,7 +2,7 @@
 @section('content')
     <div class ="container" style="padding-left: 50px;">
 
-        <div class="logo">
+        <div class="logo-about">
             <img src="{{asset('art/logo.png')}}">
         </div>
         <h1>Ask a Fellow</h1>
@@ -37,12 +37,12 @@
             width: 50%;
         }
 
-        .logo{
+        .logo-about{
             float:right;
             width: 40%;
             margin-right: 50px;
         }
-        .logo img {
+        .logo-about img {
             width: 90%;
             height: auto;
         }
