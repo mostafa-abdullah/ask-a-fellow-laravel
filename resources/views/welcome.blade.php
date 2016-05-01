@@ -25,7 +25,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Ask a Fellow</a>
+            <a class="navbar-brand" href="#"><img class="logo" src="{{asset('art/logo.png')}}"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -37,7 +37,7 @@
                 <li class="link-separator"><a>|</a></li>
                 <li><a href="{{url('/about')}}">About</a></li>
                 <li class="link-separator"><a>|</a></li>
-                <li><a href="{{url('/how_it_works')}}">How it works</a></li>
+                <li><a href="{{url('/howitworks')}}">How it works</a></li>
 
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -60,6 +60,7 @@
     @endif
 
     <div class="description_and_image">
+
         <div class="name_and_description">
             <h1>Ask a Fellow</h1>
             <p>An educational social platform made for GUC students</p>
@@ -298,7 +299,11 @@
         z-index: 5;
     }
 
-
+.logo{
+    width:70px;
+    height:auto;
+    margin-top:-10px;
+}
 
     .description_and_image
     {
