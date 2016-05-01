@@ -5,7 +5,7 @@
         <a id="registerSwitch" style="opacity:1.0;margin-left:3%;color: #CA6A1B;  margin-right:5%; border-bottom:1px solid #CA6A1B;" href="#">Answers</a>
     </nav>
 
-    <h3>Mostafa posted {{count($user->answers()->get())}} answer(s).</h3>
+    <h3>{{$user->first_name}} posted {{count($user->answers()->get())}} answer(s).</h3>
     <br>
     @foreach($user->answers()->get() as $answer)
         <div class="media">

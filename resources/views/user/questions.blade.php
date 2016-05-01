@@ -5,7 +5,7 @@
         <a id="registerSwitch" style="opacity:0.5;margin-left:3%;color: #CA6A1B;  margin-right:5%; border-bottom:1px solid #CA6A1B;" href="{{url('user/'.$user->id)}}/answers">Answers</a>
     </nav>
 
-    <h3>Mostafa asked {{count($user->questions()->get())}} question(s).</h3>
+    <h3>{{$user->first_name}} asked {{count($user->questions()->get())}} question(s).</h3>
     <br>
     @foreach($user->questions()->get() as $question)
         <div class="media">
