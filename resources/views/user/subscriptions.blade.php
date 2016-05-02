@@ -1,6 +1,6 @@
 @extends('layouts.app');
 @section('content')
-    <div class="container" style="padding-left:100px">
+    <div class="container" style="padding-left:100px; width:100%;">
         <h1>Manage subscriptions</h1>
         <form method="POST" action="">
             {{csrf_field()}}
