@@ -30,7 +30,7 @@ class AdminController extends Controller
         $courses = Course::all();
         $majors = Major::all();
 
-        return view('admin.add_course',compact(['courses','majors']));
+        return view('admin.add_course', compact(['courses', 'majors']));
     }
 
 
@@ -67,10 +67,10 @@ class AdminController extends Controller
         $majors = Major::all();
 
         $course_majors = array();
-        foreach($course->majors()->get() as $major)
+        foreach ($course->majors()->get() as $major)
             $course_majors[] = $major->id;
 
-        return view('admin.update_course',compact(['course','majors','course_majors']));
+        return view('admin.update_course', compact(['course', 'majors', 'course_majors']));
 
     }
 
@@ -97,7 +97,7 @@ class AdminController extends Controller
     public function add_major_page()
     {
         $majors = Major::all();
-        return view('admin.add_major',compact(['courses','majors']));
+        return view('admin.add_major', compact(['courses', 'majors']));
     }
 
     public function add_major(Request $request)
@@ -123,7 +123,7 @@ class AdminController extends Controller
     public function update_major_page($id)
     {
         $major = Major::find($id);
-        return view('admin.update_major',compact(['major']));
+        return view('admin.update_major', compact(['major']));
     }
 
     public function update_major($id, Request $request)
@@ -144,16 +144,22 @@ class AdminController extends Controller
     public function view_feedbacks()
     {
         $feedbacks = Feedback::all();
-        return view('admin.feedbacks',compact(['feedbacks']));
+        return view('admin.feedbacks', compact(['feedbacks']));
     }
 
     public function view_reports()
     {
         $question_reports = QuestionReport::all();
         $answer_reports = AnswerReport::all();
-        return view('admin.reports',compact(['question_reports','answer_reports']));
+        return view('admin.reports', compact(['question_reports', 'answer_reports']));
     }
 
+
+    public function manyMailView()
+    {
+        $users = User::all();
+        return view('admin.mail_many',compact(['users']));
+    }
 
     public function processMailToUsers(Request $request, $type)
     {
