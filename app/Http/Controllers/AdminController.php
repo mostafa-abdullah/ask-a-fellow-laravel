@@ -182,7 +182,7 @@ class AdminController extends Controller
     {
         $user = User::find($user_id);
 
-        Mail::send('auth.emails.verify', ['mail_content' => $mail_content, 'name' => $user->first_name], function($message) use ($user,$mail_subject,$mail_content) {
+        Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => $user->first_name], function($message) use ($user,$mail_subject,$mail_content) {
             $message->to($user->email, $user->first_name)
                 ->subject($mail_subject);
         });
@@ -191,10 +191,20 @@ class AdminController extends Controller
 
     public function sendMailToManyUsers($users, $mail_subject, $mail_content)
     {
+
+        $usersEmails = [];
         foreach($users as $user)
         {
-            $this->sendMailToOneUser($user, $mail_subject, $mail_content);
+            $usersEmails[] = User::find($user)->email;
         }
+
+
+        Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => 'awesome Ask a Fellow member'], function($message) use ($usersEmails,$mail_subject,$mail_content) {
+            $message->to([])->bcc($usersEmails)
+                ->subject($mail_subject);
+        });
+
+        return 'Success';
 
     }
 
