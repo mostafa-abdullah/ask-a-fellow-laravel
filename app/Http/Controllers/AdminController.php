@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Major;
 use App\Course;
+use App\User;
+use Mail;
 
 class AdminController extends Controller
 {
@@ -151,6 +153,45 @@ class AdminController extends Controller
         $answer_reports = AnswerReport::all();
         return view('admin.reports',compact(['question_reports','answer_reports']));
     }
+
+
+    public function processMailToUsers(Request $request, $type)
+    {
+
+
+        if($type == 0)
+        {
+            $this->sendMailToOneUser($request->user_id,$request->mail_subject, $request->mail_content);
+        }
+        else
+        {
+            $this->sendMailToManyUsers($request->users, $request->mail_subject, $request->mail_content);
+        }
+
+
+    }
+
+
+    public function sendMailToOneUser($user_id, $mail_subject, $mail_content)
+    {
+        $user = User::find($user_id);
+
+        Mail::send('auth.emails.verify', ['mail_content' => $mail_content, 'name' => $user->first_name], function($message) use ($user,$mail_subject,$mail_content) {
+            $message->to($user->email, $user->first_name)
+                ->subject($mail_subject);
+        });
+    }
+
+
+    public function sendMailToManyUsers($users, $mail_subject, $mail_content)
+    {
+        foreach($users as $user)
+        {
+            $this->sendMailToOneUser($user, $mail_subject, $mail_content);
+        }
+
+    }
+
 
 
 
