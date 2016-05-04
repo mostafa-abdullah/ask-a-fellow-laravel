@@ -12,6 +12,7 @@ use App\Major;
 use App\Course;
 use App\User;
 use Mail;
+use Session;
 
 class AdminController extends Controller
 {
@@ -173,11 +174,27 @@ class AdminController extends Controller
 
         if($type == 0)
         {
-            $this->sendMailToOneUser($request->user_id,$request->mail_subject, $request->mail_content);
+            $sendMail = $this->sendMailToOneUser($request->user_id,$request->mail_subject, $request->mail_content);
+            if($sendMail) {
+                Session::flash('mail', 'Mail sent successfully');
+                return redirect(url('user/' . $request->user_id));
+            }
+            else {
+                Session::flash('mail', 'Error sending mail');
+                return redirect(url('admin/mail/one/' . $request->user_id));
+            }
         }
         else
         {
-            $this->sendMailToManyUsers($request->users, $request->mail_subject, $request->mail_content);
+            $sendMail = $this->sendMailToManyUsers($request->users, $request->mail_subject, $request->mail_content);
+            if($sendMail) {
+                Session::flash('mail', 'Mail sent successfully');
+                return redirect(url('admin/'));
+            }
+            else {
+                Session::flash('mail', 'Error sending mail');
+                return redirect(url('admin/mail/many/'));
+            }
         }
 
 
@@ -188,10 +205,13 @@ class AdminController extends Controller
     {
         $user = User::find($user_id);
 
-        Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => $user->first_name], function($message) use ($user,$mail_subject,$mail_content) {
+        $sendMail = Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => $user->first_name], function($message) use ($user,$mail_subject,$mail_content) {
             $message->to($user->email, $user->first_name)
                 ->subject($mail_subject);
         });
+
+        return $sendMail;
+
     }
 
 
@@ -205,12 +225,14 @@ class AdminController extends Controller
         }
 
 
-        Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => 'awesome Ask a Fellow member'], function($message) use ($usersEmails,$mail_subject,$mail_content) {
+        $sendMail = Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => 'awesome Ask a Fellow member'], function($message) use ($usersEmails,$mail_subject,$mail_content) {
             $message->to([])->bcc($usersEmails)
                 ->subject($mail_subject);
         });
 
-        return 'Success';
+
+        return $sendMail;
+
 
     }
 

@@ -3,6 +3,13 @@
 @section('content')
 
     <div class="container" style="width: 90%; padding-left: 50px">
+        @if (session('mail'))
+            <div class="flash-message">
+                <div class="alert alert-info" style="background-color: #FFAF6C; border-color: #FF6B2D; color:#AA5B0B">
+                    {{session('mail')}}
+                </div>
+            </div>
+        @endif
         <h2>Send mail to {{$user->first_name.' '.$user->last_name}}</h2>
         <br>
         <form method="POST" action="{{url('/mail/0')}}">
