@@ -161,6 +161,12 @@ class AdminController extends Controller
         return view('admin.mail_many',compact(['users']));
     }
 
+    public function oneMailView($id)
+    {
+        $user = User::find($id);
+        return view('admin.mail_one',compact(['user']));
+    }
+
     public function processMailToUsers(Request $request, $type)
     {
 
