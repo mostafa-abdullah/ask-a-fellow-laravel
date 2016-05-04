@@ -160,7 +160,7 @@ class AdminController extends Controller
 
     public function manyMailView()
     {
-        $users = User::all();
+        $users = User::where('confirmed','>=','1')->get();
         return view('admin.mail_many',compact(['users']));
     }
 
@@ -263,6 +263,14 @@ class AdminController extends Controller
         $mails = AdminMail::orderBy('created_at','desc')->get();
         return view('admin.mail_log',compact(['mails']));
     }
+
+
+    public function listUsers()
+    {
+        $users = User::orderBy('first_name','asc');
+        return view('admin.users',compact(['users']));
+    }
+
 
 
 

@@ -45,7 +45,7 @@
             </tr>
             <tr>
                 <td>
-                    <a href="{{url('admin/ban')}}">Ban a User</a>
+                    <a href="{{url('admin/users')}}">List all users</a>
                 </td>
             </tr>
 
