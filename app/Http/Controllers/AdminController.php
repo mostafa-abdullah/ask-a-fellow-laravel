@@ -231,7 +231,7 @@ class AdminController extends Controller
         }
 
 
-        $sendMail = Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => 'awesome Ask a Fellow member'], function($message) use ($usersEmails,$mail_subject,$mail_content) {
+        $sendMail = Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => 'awesome AskaFellow member'], function($message) use ($usersEmails,$mail_subject,$mail_content) {
             $message->to([])->bcc($usersEmails)
                 ->subject($mail_subject);
         });
