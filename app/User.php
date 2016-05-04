@@ -229,6 +229,16 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * Return a list of mails received from admins by this user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function received_mails()
+    {
+        return $this->belongsToMany('App\AdminMail','mail_recipients','user_id','mail_id');
+    }
+
+
 
     /*
      * Admin roles:
@@ -295,6 +305,16 @@ class User extends Authenticatable
             return;
         $answer = Answer::find($answer_id);
         $answer->delete();
+    }
+
+
+    /**
+     * Returns a list of mails sent by this admin
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sent_mails()
+    {
+        return $this->hasMany('App\AdminMail','user_id');
     }
 
 }
