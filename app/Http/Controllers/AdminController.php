@@ -258,6 +258,14 @@ class AdminController extends Controller
     }
 
 
+    public function showMailLog()
+    {
+        $mails = AdminMail::orderBy('created_at','desc')->get();
+        return view('admin.mail_log',compact(['mails']));
+    }
+
+
+
 
 
 
