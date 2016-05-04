@@ -9,6 +9,13 @@
                 </div>
             </div>
         @endif
+        @if (session('mail'))
+            <div class="flash-message">
+                <div class="alert alert-info" style="background-color: #FFAF6C; border-color: #FF6B2D; color:#AA5B0B">
+                    {{session('mail')}}
+                </div>
+            </div>
+        @endif
         <div class="profile_picture">
             @if($user->profile_picture)
                 <img src="{{asset($user->profile_picture)}}" style="">
@@ -22,7 +29,10 @@
         <p style="font-size: 20px;">{{$user->semester?'Semester '.$user->semester:''}}<br> {{$user->major?$user->major->major:''}}</p>
         <p>{{$user->bio}}</p>
         @if(Auth::user() && Auth::user()->id == $user->id)
-             <a class="btn btn-success " href="{{url('user/update')}}">Update info</a>
+                <a class="btn btn-success " href="{{url('user/update')}}">Update info</a>
+        @endif
+        @if(Auth::user() && Auth::user()->role >= 1 && Auth::user()->id != $user->id)
+                <a class="btn btn-info " href="{{url('admin/mail/one/'.$user->id)}}">Email user</a>
         @endif
 
     </div>

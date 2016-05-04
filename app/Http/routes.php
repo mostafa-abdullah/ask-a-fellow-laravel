@@ -56,6 +56,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/admin/update_major/{id}','AdminController@update_major');
     Route::get('/admin/feedbacks','AdminController@view_feedbacks');
     Route::get('/admin/reports','AdminController@view_reports');
+    Route::get('/admin/mail/many','AdminController@manyMailView');
+    Route::get('/admin/mail/one/{id}','AdminController@oneMailView');
+    Route::post('/mail/{type}','AdminController@processMailToUsers');
 
 
     Route::get('/browse','AppController@browse');
