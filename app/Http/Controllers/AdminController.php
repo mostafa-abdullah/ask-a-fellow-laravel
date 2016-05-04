@@ -11,8 +11,10 @@ use App\Http\Requests;
 use App\Major;
 use App\Course;
 use App\User;
+use App\AdminMail;
 use Mail;
 use Session;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -209,6 +211,10 @@ class AdminController extends Controller
             $message->to($user->email, $user->first_name)
                 ->subject($mail_subject);
         });
+        if($sendMail)
+        {
+            $this->saveMail([$user_id], $mail_subject, $mail_content);
+        }
 
         return $sendMail;
 
@@ -230,10 +236,25 @@ class AdminController extends Controller
                 ->subject($mail_subject);
         });
 
+        if($sendMail)
+        {
+            $this->saveMail($users, $mail_subject, $mail_content);
+        }
 
         return $sendMail;
 
 
+    }
+
+
+    public function saveMail($recipients, $mail_subject, $mail_body)
+    {
+        $mail = new AdminMail();
+        $mail->user_id = Auth::user()->id;
+        $mail->subject = $mail_subject;
+        $mail->body = $mail_body;
+        $mail->save();
+        $mail->recipients()->attach($recipients);
     }
 
 
