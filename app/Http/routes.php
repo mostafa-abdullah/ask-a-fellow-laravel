@@ -58,6 +58,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/admin/reports','AdminController@view_reports');
     Route::get('/admin/mail/many','AdminController@manyMailView');
     Route::get('/admin/mail/one/{id}','AdminController@oneMailView');
+    Route::get('/admin/users','AdminController@listUsers');
+    Route::get('/admin/mail/log','AdminController@showMailLog');
     Route::post('/mail/{type}','AdminController@processMailToUsers');
 
 

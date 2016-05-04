@@ -40,7 +40,12 @@
             </tr>
             <tr>
                 <td>
-                    <a href="{{url('admin/ban')}}">Ban a User</a>
+                    <a href="{{url('admin/mail/log')}}">Mails Log</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{url('admin/users')}}">List all users</a>
                 </td>
             </tr>
 

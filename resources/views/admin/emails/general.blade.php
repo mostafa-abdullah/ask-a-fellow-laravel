@@ -13,7 +13,7 @@
     <br>
     <br>
     Regards,<br>
-    TechHub Development Team
+    AskaFellow Administration Team
 </div>
 
 </body>
