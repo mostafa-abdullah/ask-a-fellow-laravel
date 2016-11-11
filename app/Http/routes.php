@@ -100,3 +100,16 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/register/verify/{token}','Auth\AuthController@verify');
     Route::get('/home', 'HomeController@index');
 });
+
+/*
+|==========================================================================
+| API Routes
+|==========================================================================
+|
+| These routes are related to the API routes of this project
+|The routes inside this prefix Matches The "/api/v1/your_route" URL
+*/
+
+Route::group(['prefix' => 'api/v1'], function () {
+
+});
