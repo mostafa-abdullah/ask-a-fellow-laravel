@@ -22,7 +22,7 @@ class QuestionAPIController extends Controller
 
     /**
      *  returns a json object of the answers of a certain $question_id order by $order.
-     *  $order : votes,latest,oldest.
+     *  $order : votes, latest, oldest.
      **/
 
     public function view_answers($question_id, $order)
