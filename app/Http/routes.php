@@ -115,6 +115,11 @@ Route::group(['prefix' => 'api/v1'], function () {
     */
 
     /*
+     * Question header viewing
+     */
+    Route::get('questions/{id}', 'API\QuestionAPIController@view_question_header');
+
+    /*
      * Question viewing with answers and sorting.
      * */
     Route::get('answers/{id}/{order}', 'API\QuestionAPIController@view_answers');
