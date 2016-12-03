@@ -6,6 +6,18 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+
+use Tymon\JWTAuth\Token;
+use App\User;
+use JWTAuth;
+use JWTFactory;
+use Response;
+use Validator;
+use Mail;
+use Auth;
+
 
 class AuthAPIController extends Controller
 {
@@ -68,5 +80,35 @@ class AuthAPIController extends Controller
         $this->create($request->all());
 
         return response()->json(['message' => 'Thank you for registering. Kindly go to your email and follow the link to verify your account'], 200);
+    }
+
+    public function verify($token)
+    {
+        $user = User::where('confirmation_code','=',$token)->first();
+        if($user){
+            $user->confirmed = true;
+            $user->save();
+            return response()->json(['message' => 'Your email is now verified'], 200);
+        }else{
+            return response()->json(['message' => 'invalid activation code'], 200);
+        }
+
+    }
+    /**
+     * Logout for a User
+     */
+
+    public function logout(Request $request)
+    {
+        try
+        {
+            if($request->header('x-access-token'))
+                JWTAuth::setToken(new Token($request->header('x-access-token')))->invalidate();
+        }
+        catch(TokenInvalidException $e)
+        {
+            return response()->json(['message' => 'invalid token'], 200);
+        }
+        return response()->json(['message' => 'Logged out.'], 200);
     }
 }
