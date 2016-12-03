@@ -96,8 +96,8 @@ class AuthAPIController extends Controller
     }
 
     /**
-     * Login for a volunteer
-     * @param  Request $request: must contain email and password of the volunteer
+     * Login for a User
+     * @param  Request $request: must contain email and password of the User
      * @return json response containing an error in case of invalid credentials or
      * a server error or the token in case of valid credentials
      */
@@ -128,12 +128,7 @@ class AuthAPIController extends Controller
         // no errors, return the token
         return Response::json(['token' => $token->get()]);
     }
-
-
-
-
-
-
+    
     /**
      * Logout for a User
      */
