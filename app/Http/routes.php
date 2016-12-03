@@ -118,4 +118,12 @@ Route::group(['prefix' => 'api/v1'], function () {
      * Question viewing with answers and sorting.
      * */
     Route::get('answers/{id}/{order}', 'API\QuestionAPIController@view_answers');
+
+    /**
+     * Users Authentication
+     */
+    Route::post('register', 'API\AuthAPIController@register');
+    Route::post('login', 'API\AuthAPIController@login');
+    Route::post('logout', 'API\AuthAPIController@logout');
+
 });
