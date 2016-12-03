@@ -175,6 +175,7 @@ $pages = ceil($count_questions/$take);
             font-size: 18px;
             background-color: #F9EBDA;
             padding: 15px;
+            
             /*display: inline-block;*/
         }
 
