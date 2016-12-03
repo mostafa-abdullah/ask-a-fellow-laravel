@@ -42,6 +42,9 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('/admin', 'AdminController@index');
+    Route::get('/admin/add_badge','AdminController@add_badge');
+    Route::post('/admin/add_badge/{id}','AdminController@save_badge');
+    Route::post('/admin/remove_badge/{id}','AdminController@remove_badge');
     Route::get('/admin/add_course', 'AdminController@add_course_page');
     Route::get('/admin/add_major', 'AdminController@add_major_page');
     Route::post('/admin/add_major', 'AdminController@add_major');

@@ -235,4 +235,30 @@ $pages = ceil($count_questions/$take);
 
         }
     </style>
+
+    <script>
+        $('.upvote_question').click(function(){
+            var question_id = $(this).attr('value');
+            var type = 0;
+            var question = $(this);
+            $.ajax({
+                'url' : "{{url('')}}/vote/question/"+question_id+"/"+type,
+                success: function(data){
+                    question.parent().find('.question_votes').html(data);
+                }
+            });
+        });
+
+        $('.downvote_question').click(function(){
+            var question_id = $(this).attr('value');
+            var type = 1;
+            var question = $(this);
+            $.ajax({
+                'url' : "{{url('')}}/vote/question/"+question_id+"/"+type,
+                success: function(data){
+                    question.parent().find('.question_votes').html(data);
+                }
+            });
+        });
+    </script>
 @endsection
