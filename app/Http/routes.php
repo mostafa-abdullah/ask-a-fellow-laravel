@@ -118,4 +118,6 @@ Route::group(['prefix' => 'api/v1'], function () {
      * Question viewing with answers and sorting.
      * */
     Route::get('answers/{id}/{order}', 'API\QuestionAPIController@view_answers');
+    Route::get('/vote/answer/{answer_id}/{type}', 'API\QuestionAPIController@vote_answer');
+    Route::get('/vote/question/{answer_id}/{type}', 'API\QuestionAPIController@vote_question');
 });
