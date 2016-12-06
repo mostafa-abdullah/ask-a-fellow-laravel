@@ -17,14 +17,31 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->guest()) {
-            if ($request->ajax() || $request->wantsJson()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->guest('login');
+        $authenticated = true;
+        $token = $request->header('x-access-token');
+        if($token)
+        {
+            try
+            {
+                JWTAuth::decode(new Token($token));
+            }
+            catch(TokenInvalidException $e)
+            {
+                $authenticated = false;
             }
         }
+        else if(Auth::guard($guard)->guest())
+            $authenticated = false;
 
-        return $next($request);
+        if($authenticated)
+            return $next($request);
+        if($request->ajax() || $request->wantsJson())
+            return response()->json(['error' => 'Unauthorized.'], 401);
+        return redirect()->guest('login');
     }
+
+
+
+
+
 }
