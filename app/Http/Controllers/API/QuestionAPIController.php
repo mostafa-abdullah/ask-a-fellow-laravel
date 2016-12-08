@@ -56,10 +56,16 @@ class QuestionAPIController extends Controller
     {
         $user = Auth::user();
 
-        if($type == 0 && count($user->upvotesOnAnswer($answer_id)))
-            return 'Cannot upvote twice';
-        if($type == 1 && count($user->downvotesOnAnswer($answer_id)))
-            return 'Cannot downvote twice';
+        if($type == 0 && count($user->upvotesOnAnswer($answer_id))){
+            $returnData['status'] = false;
+            $returnData['message'] = 'Cannot upvote twice';
+            return response()->json($returnData);
+        }
+        if($type == 1 && count($user->downvotesOnAnswer($answer_id))){
+            $returnData['status'] = false;
+            $returnData['message'] = 'Cannot downvote twice';
+            return response()->json($returnData);
+        }
         if($type == 0 && count($user->downvotesOnAnswer($answer_id))) {
             $vote = AnswerVote::where('user_id','=',Auth::user()->id)->where('answer_id','=',$answer_id)->first();
             $vote->delete();
@@ -92,7 +98,7 @@ class QuestionAPIController extends Controller
             $color = 'red';
 
         $returnData['status'] = true;
-        $returnData['question'] = $answer;
+        $returnData['answer'] = $answer;
         $returnData['votes'] = $votes;
         $returnData['color'] = $color;
 
@@ -104,10 +110,16 @@ class QuestionAPIController extends Controller
     {
         $user = Auth::user();
 
-        if($type == 0 && count($user->upvotesOnQuestion($question_id)))
-            return 'Cannot upvote twice';
-        if($type == 1 && count($user->downvotesOnQuestion($question_id)))
-            return 'Cannot downvote twice';
+        if($type == 0 && count($user->upvotesOnQuestion($question_id))){}
+            $returnData['status'] = false;
+            $returnData['message'] = 'Cannot upvote twice';
+            return response()->json($returnData);
+        }
+        if($type == 1 && count($user->downvotesOnQuestion($question_id))){
+            $returnData['status'] = false;
+            $returnData['message'] = 'Cannot downvote twice';
+            return response()->json($returnData);
+        }
         if($type == 0 && count($user->downvotesOnQuestion($question_id))) {
             $vote = QuestionVote::where('user_id','=',Auth::user()->id)->where('question_id','=',$question_id)->first();
             $vote->delete();
