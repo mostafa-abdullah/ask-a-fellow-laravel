@@ -42,6 +42,9 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('/admin', 'AdminController@index');
+    Route::get('/admin/add_badge','AdminController@add_badge');
+    Route::post('/admin/add_badge/{id}','AdminController@save_badge');
+    Route::post('/admin/remove_badge/{id}','AdminController@remove_badge');
     Route::get('/admin/add_course', 'AdminController@add_course_page');
     Route::get('/admin/add_major', 'AdminController@add_major_page');
     Route::post('/admin/add_major', 'AdminController@add_major');
@@ -115,8 +118,22 @@ Route::group(['prefix' => 'api/v1'], function () {
     */
 
     /*
+     * Question header viewing
+     */
+    Route::get('questions/{id}', 'API\QuestionAPIController@view_question_header');
+
+    /*
      * Question viewing with answers and sorting.
      * */
     Route::get('answers/{id}/{order}', 'API\QuestionAPIController@view_answers');
-});
 
+    /**
+     * Users Authentication
+     */
+    Route::post('register', 'API\AuthAPIController@register');
+    Route::get('register/verify/{token}','API\AuthAPIController@verify');
+    Route::post('login', 'API\AuthAPIController@login');
+    Route::post('logout', 'API\AuthAPIController@logout');
+
+});
+0
