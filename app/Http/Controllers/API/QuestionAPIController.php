@@ -43,6 +43,9 @@ class QuestionAPIController extends Controller
                 $answers = $question->answers()->orderBy('votes', 'desc')->orderBy('created_at', 'desc')->get();
 
             $returnData['status'] = true;
+            foreach ($answers as $answer) {
+               $answer['responder'] = $answer->responder;
+            }
             $returnData['data'] = $answers;
         }
 
