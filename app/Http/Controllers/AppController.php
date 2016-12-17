@@ -178,6 +178,7 @@ class AppController extends Controller
 
     public function inside_question($question_id)
     {
+        
         $question = Question::find($question_id);
         if(!$question)
             return 'Ooops! question not found';
