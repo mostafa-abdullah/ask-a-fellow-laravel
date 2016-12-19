@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Auth;
 use App\Major;
 use Illuminate\Support\Facades\Session;
+use Cloudinary\Uploader;
 
 class UserController extends Controller
 {
@@ -72,28 +73,43 @@ class UserController extends Controller
 
         if($request->file('profile_picture'))
         {
+            \Cloudinary::config(array(
+              "cloud_name" => env("CLOUDINARY_NAME"),
+              "api_key" => env("CLOUDINARY_KEY"),
+              "api_secret" => env("CLOUDINARY_SECRET")
+            ));
 
-            //change profile picture
-            if($user->profile_picture)
-                unlink('../public'.Auth::user()->profile_picture);
+            if($user->profile_picture) {
+              // delete previous profile picture
+              $this->delete_image($user->profile_picture);
+            }
+
+            // upload and set new picture
             $file = $request->file('profile_picture');
-            $photoname = uniqid();
-
-            $file_name = $photoname.'.'.$file->guessClientExtension();
-
-            //resize here
-            $file->move('../public/art/pp',$file_name);
-            $user->profile_picture = '/art/pp/' . $photoname . '.'.$file->guessClientExtension();
+            $image = Uploader::upload($file->getRealPath(), ["width" => 300, "height" => 300, "crop" => "limit"]);
+            $user->profile_picture = $image["url"];
         }
 
         $user->save();
-
-
-
 
         Session::flash('updated','Info updated successfully!');
         return redirect(url('/user/'.$user->id));
     }
 
+    /**
+    *@param uri: the uri to the image to be deleted
+    */
+    private function delete_image($uri)
+    {
+        // extract the public id
+        $tmp = explode('/', $uri);
+        $public_id = end($tmp);
 
+        // remove the extension
+        $tmp = explode('.', $public_id);
+        $tmp = array_slice($tmp, 0, -1);
+        $public_id = implode(".", $tmp);
+
+        Uploader::destroy($public_id);
+    }
 }
