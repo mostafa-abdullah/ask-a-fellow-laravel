@@ -135,4 +135,13 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post('login', 'API\AuthAPIController@login');
     Route::post('logout', 'API\AuthAPIController@logout');
 
+
+    /**
+     *  Users Profile
+     */
+
+    Route::get('user/{id}','API\UserAPIController@getUser'); 
+
+
+
 });
