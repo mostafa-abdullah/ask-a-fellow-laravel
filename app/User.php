@@ -46,6 +46,15 @@ class User extends Authenticatable
 
 
     /**
+     * Return list of questions asked by this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function lastFiveQuestions(){
+        return $this->questions()->orderBy('id','desc')->take(5)->get();
+    }
+
+    /**
      * Return list of answers posted by this user
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -61,7 +70,7 @@ class User extends Authenticatable
      */
 
      public function lastFiveAnswers(){
-       return this->answers()->orderBy('id','desc')->take(5)->get();
+       return $this->answers()->orderBy('id','desc')->take(5)->get();
      }
 
 

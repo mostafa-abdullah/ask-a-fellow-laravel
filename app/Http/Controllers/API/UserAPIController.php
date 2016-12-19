@@ -36,6 +36,9 @@ class UserAPIController extends controller
 
           // the user is valid
 
+          // get most recently five answers done by this user
+          $answers =  $user->lastFiveAnswers();
+
           // create returned success json object
           return response()->json(
             'status'=> 200,
@@ -47,7 +50,8 @@ class UserAPIController extends controller
                 'major'           => $user->major,
                 'semester'        => $user->semester,
                 'bio'             => $user->bio,
-                'profile_picture' => $user->profile_picture
+                'profile_picture' => $user->profile_picture,
+                'questions'       =>
 
 
             }
