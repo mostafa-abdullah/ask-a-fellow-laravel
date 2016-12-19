@@ -1,7 +1,13 @@
 <?php
 namespace App\Http\Controllers\API;
+use App\Http\Controllers\Controller;
+use App\User;
+/**
+ * Class UserAPIController
+ * @package App\Http\Controllers\API
+ */
 
-class UserAPIController extends controller
+class UserAPIController extends Controller
 {
     public function __construct()
     {
@@ -9,6 +15,7 @@ class UserAPIController extends controller
         ]]);
 
     }
+
 
       /**
        * getUser is used to get all user's profile data
@@ -21,29 +28,33 @@ class UserAPIController extends controller
         // check if the user is valid
         if(!$user)
           // create an error json object to be send in the http response
-          return response()->json(
-              'status'=> 404,
+          return response()->json([
+              'status'=> '404',
               'message'=> 'Bad Request',
-              "errors"=>[
-                  {
+              "errors"=>
+                  [
                     'resourse' => 'users',
                     'message'=> 'Invalid User ID'
-                  }
-              ]
+                  ]
 
+            ]
             ,404);
 
 
           // the user is valid
 
-          // get most recently five answers done by this user
+          // get most recently five answers answered by this user
           $answers =  $user->lastFiveAnswers();
+
+          // get most recently five questions asked by this user
+          $questions = $user->lastFiveQuestions();
 
           // create returned success json object
           return response()->json(
-            'status'=> 200,
+            [
+            'status'=> '200',
             'message'=> 'OK',
-            'results'=>{
+            'results'=>[
                 'first_name'      => $user->first_name,
                 'last_name'       => $user->last_name,
                 'email'           => $user->email,
@@ -51,17 +62,11 @@ class UserAPIController extends controller
                 'semester'        => $user->semester,
                 'bio'             => $user->bio,
                 'profile_picture' => $user->profile_picture,
-                'questions'       =>
-
-
-            }
-
-
-            ,200)
-
-
-
-
+                'questions'       => $questions,
+                'answers'         => $answers
+            ]
+          ]
+             ,200);
 
     }
 
