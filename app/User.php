@@ -55,6 +55,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Return the last 5  answers posted by this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+     public function lastFiveAnswers(){
+       return this->answers()->orderBy('id','desc')->take(5)->get();
+     }
+
+
+    /**
      * Get a list of notifications of this user
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

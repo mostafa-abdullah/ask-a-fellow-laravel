@@ -35,7 +35,26 @@ class UserAPIController extends controller
 
 
           // the user is valid
-          
+
+          // create returned success json object
+          return response()->json(
+            'status'=> 200,
+            'message'=> 'OK',
+            'results'=>{
+                'first_name'      => $user->first_name,
+                'last_name'       => $user->last_name,
+                'email'           => $user->email,
+                'major'           => $user->major,
+                'semester'        => $user->semester,
+                'bio'             => $user->bio,
+                'profile_picture' => $user->profile_picture
+
+
+            }
+
+
+            ,200)
+
 
 
 
