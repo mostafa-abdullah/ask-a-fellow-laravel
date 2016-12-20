@@ -12,7 +12,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-
         DB::table('users')->insert([
             'first_name' => 'Hossam',
             'last_name' => 'Ahmed',
@@ -21,7 +20,13 @@ class DatabaseSeeder extends Seeder
             'role' => 1
         ]);
 
-        
+        DB::table('users')->insert([
+            'first_name' => 'Mohamed',
+            'last_name' => 'El Zarei',
+            'email' => 'mohamedelzarei@gmail.com',
+            'password' => 'helloworld',
+            'role' => 1
+        ]);
 
     }
 }
