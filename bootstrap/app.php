@@ -10,7 +10,8 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-
+header('Access-Control-Allow-Origin: http://localhost:8100');
+header('Access-Control-Allow-Headers: X-Requested-With,content-type');
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
