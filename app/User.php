@@ -46,6 +46,15 @@ class User extends Authenticatable
 
 
     /**
+     * Return list of questions asked by this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function lastFiveQuestions(){
+        return $this->questions()->orderBy('id','desc')->take(5)->get();
+    }
+
+    /**
      * Return list of answers posted by this user
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -53,6 +62,17 @@ class User extends Authenticatable
     public function answers(){
         return $this->hasMany('App\Answer','responder_id');
     }
+
+    /**
+     * Return the last 5  answers posted by this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+     public function lastFiveAnswers(){
+       return $this->answers()->orderBy('id','desc')->take(5)->get();
+     }
+
 
     /**
      * Get a list of notifications of this user
@@ -262,7 +282,7 @@ class User extends Authenticatable
     }
 
 
-    public function create_course($course_code, $course_name, $course_code)
+    public function create_course($course_code, $course_name)
     {
         if($this->role != 1)
             return;
