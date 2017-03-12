@@ -42,6 +42,9 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('/admin', 'AdminController@index');
+    Route::get('/admin/add_badge', 'AdminController@add_badge');
+    Route::post('/admin/add_badge/{id}', 'AdminController@save_badge');
+    Route::post('/admin/remove_badge/{id}', 'AdminController@remove_badge');
     Route::get('/admin/add_course', 'AdminController@add_course_page');
     Route::get('/admin/add_major', 'AdminController@add_major_page');
     Route::post('/admin/add_major', 'AdminController@add_major');
@@ -106,7 +109,7 @@ Route::group(['middleware' => 'web'], function () {
 | The routes inside this prefix Matches The "/api/v1/your_route" URL
 */
 
-Route::group(['prefix' => 'api/v1'], function () {
+Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function () {
 
     /*
         |--------------------------
@@ -115,9 +118,54 @@ Route::group(['prefix' => 'api/v1'], function () {
     */
 
     /*
+     * Question header viewing
+     */
+    Route::get('questions/{id}', 'API\QuestionAPIController@view_question_header');
+
+    /*
      * Question viewing with answers and sorting.
      * */
     Route::get('answers/{id}/{order}', 'API\QuestionAPIController@view_answers');
-    Route::get('/vote/answer/{answer_id}/{type}', 'API\QuestionAPIController@vote_answer');
-    Route::get('/vote/question/{answer_id}/{type}', 'API\QuestionAPIController@vote_question');
+
+    /**
+     * Users Authentication
+     */
+    Route::post('register', 'API\AuthAPIController@register');
+    Route::get('register/verify/{token}', 'API\AuthAPIController@verify');
+    Route::post('login', 'API\AuthAPIController@login');
+    Route::post('logout', 'API\AuthAPIController@logout');
+
+
+    /**
+     *  Users Profile
+     */
+
+    Route::get('user/{id}', 'API\UserAPIController@getUser');
+    /*
+     * browse majors and semesters API
+     */
+    Route::get('browse', 'ApiController@browse');
+    /*
+     * browse courses API
+     */
+    Route::get('/list_courses/{major}/{semester}', 'ApiController@getCourses');
+    /*
+     * Browse Questions of a course API
+     */
+    Route::get('/browse/{course_id}', 'ApiController@list_questions');
+    /*
+     *  Vote a question
+     */
+    Route::get('/vote/question/{answer_id}/{type}', 'ApiController@vote_question');
+    /*
+     *  Post a question
+     */
+    Route::post('/browse/{course_id}', 'ApiController@post_question');
+    /*
+     * Home page data
+     */
+    Route::get('/home','ApiController@home');
+
 });
+
+

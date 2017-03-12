@@ -34,8 +34,15 @@
 
                     @if($question->asker->profile_picture)
                         <img class="media-object" src="{{asset($question->asker->profile_picture)}}" alt="...">
+                        @if($question->asker->verified_badge >=1)
+                            <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
+
+                        @endif
                     @else
                         <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
+                        @if($question->asker->verified_badge >=1)
+                            <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
+                        @endif
                     @endif
                 </a>
                 @if(Auth::user())
@@ -88,8 +95,14 @@
 
                             @if($answer->responder->profile_picture)
                                 <img class="media-object" src="{{asset($answer->responder->profile_picture)}}" alt="...">
+                                @if($answer->responder->verified_badge >=1)
+                                    <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
+                                @endif
                             @else
                                 <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
+                                @if($answer->responder->verified_badge >=1)
+                                    <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
+                                @endif
                             @endif
                         </a>
                         @if(Auth::user())

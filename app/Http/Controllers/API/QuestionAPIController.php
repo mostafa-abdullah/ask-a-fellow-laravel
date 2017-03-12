@@ -10,6 +10,10 @@ use App\Question;
 use Auth;
 
 
+/**
+ * Class QuestionAPIController
+ * @package App\Http\Controllers\API
+ */
 class QuestionAPIController extends Controller
 {
 
@@ -19,6 +23,43 @@ class QuestionAPIController extends Controller
             'vote_answer',
             'vote_question'
         ]]);
+
+    }
+
+    /**
+     * returns a json object of the header of the question (all of its info)
+     */
+
+    /**
+     * @param $question_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function view_question_header($question_id)
+    {
+        $Question = Question::find($question_id);
+        if(!$Question){
+            return response()->json([
+                'error' => [
+                    'message' => 'Question requested not found'
+                ]
+
+            ], 404);
+        }
+
+        $asker = $Question->asker();
+
+        return response()->json([
+            'data' => [
+                'question' => $Question['question'],
+                'creation' => $Question['created_at'],
+                'update' => $Question['updated_at'],
+                'votes' => $Question['votes'],
+                'asker_fname' => $asker['first_name'],
+                'asker_lname' => $asker['last_name']
+            ]
+
+        ], 200);
 
     }
 
@@ -45,6 +86,9 @@ class QuestionAPIController extends Controller
                 $answers = $question->answers()->orderBy('votes', 'desc')->orderBy('created_at', 'desc')->get();
 
             $returnData['status'] = true;
+            foreach ($answers as $answer) {
+               $answer['responder'] = $answer->responder;
+            }
             $returnData['data'] = $answers;
         }
 

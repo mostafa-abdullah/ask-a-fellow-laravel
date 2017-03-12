@@ -270,6 +270,25 @@ class AdminController extends Controller
         $users = User::orderBy('first_name','asc');
         return view('admin.users',compact(['users']));
     }
+    
+    public function add_badge(){
+        $users = User::orderBy('first_name','asc');
+        return view('admin.badge',compact(['users']));
+    }
+    public function save_badge($id){
+        $user = User::findOrFail($id);
+        $user->verified_badge=1;
+        $user->save();
+        $users = User::orderBy('first_name','asc');
+        return view('admin.badge',compact(['users']));
+    }
+    public function remove_badge($id){
+        $user = User::findOrFail($id);
+        $user->verified_badge=0;
+        $user->save();
+        $users = User::orderBy('first_name','asc');
+        return view('admin.badge',compact(['users']));
+    }
 
 
 
