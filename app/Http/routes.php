@@ -167,3 +167,5 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function () {
     Route::get('/home','ApiController@home');
 
 });
+
+
