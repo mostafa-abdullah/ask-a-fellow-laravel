@@ -282,13 +282,15 @@ class User extends Authenticatable
     }
 
 
-    public function create_course($course_code, $course_name)
+
+    public function create_course($course_code1, $course_name, $course_code)
+
     {
         if($this->role != 1)
             return;
         $course = new Course();
         $course->course_name = $course_name;
-        $course->course_code = $course_code;
+        $course->course_code = $course_code1;
         $course->semester = $course_code;
         $course->save();
     }

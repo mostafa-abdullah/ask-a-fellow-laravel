@@ -56,11 +56,17 @@ $pages = ceil($count_questions/$take);
                 <div style="text-align: center" class="media-left">
 
                     <a href="{{url('user/'.$question->asker_id)}}">
-
                         @if($question->asker->profile_picture)
                             <img class="media-object" src="{{asset($question->asker->profile_picture)}}" alt="...">
+                            @if($question->asker->verified_badge >=1)
+                                <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
+
+                            @endif
                         @else
                             <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
+                            @if($question->asker->verified_badge >=1)
+                                <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
+                            @endif
                         @endif
                     </a>
                     @if(Auth::user())
@@ -92,8 +98,16 @@ $pages = ceil($count_questions/$take);
 
                                     @if($question->answers()->orderBy('answers.votes','desc')->first()->responder->profile_picture)
                                         <img class="media-object" src="{{asset($question->answers()->orderBy('answers.votes','desc')->first()->responder->profile_picture)}}" alt="...">
+                                    @if($question->answers()->orderBy('answers.votes','desc')->first()->responder->verified_badge >= 1)
+                                              <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
+                                        @endif
                                     @else
                                         <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
+                                        @if($question->answers()->orderBy('answers.votes','desc')->first()->responder->verified_badge >= 1)
+
+                                            <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
+
+                                        @endif
                                     @endif
                                 </a>
                             </div>

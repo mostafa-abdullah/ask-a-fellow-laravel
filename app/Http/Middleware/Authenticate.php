@@ -2,8 +2,14 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+
+use Tymon\JWTAuth\Token;
+use JWTAuth;
+
 
 class Authenticate
 {
@@ -23,7 +29,10 @@ class Authenticate
         {
             try
             {
-                JWTAuth::decode(new Token($token));
+               $var= JWTAuth::decode(new Token($token));
+                $user= User::findOrFail($var['id']);
+                Auth::setUser($user);
+
             }
             catch(TokenInvalidException $e)
             {
