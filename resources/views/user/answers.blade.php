@@ -29,7 +29,7 @@
             </div>
             <div class="media-body">
                 <h4 class="media-heading">{{substr($answer->question()->first()->question,0,50).'...'}}</h4>
-                {{substr($answer->answer,0,300).'....'}}<a href="#">See full answer.</a>
+                {{substr($answer->answer,0,300).'....'}}<a href="{{url('/answers/'.$answer->question()->first()->id)}}">See full answer.</a>
                 <p style="font-weight: bold; font-style: italic; font-size: 13px;">{{ date("F j, Y, g:i a",strtotime($answer->created_at)) }} </p>
             </div>
 
