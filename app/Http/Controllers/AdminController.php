@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\AnswerReport;
 use App\Feedback;
+use App\Question;
 use App\QuestionReport;
 use Illuminate\Http\Request;
 
@@ -160,40 +162,35 @@ class AdminController extends Controller
 
     public function manyMailView()
     {
-        $users = User::where('confirmed','>=','1')->get();
-        return view('admin.mail_many',compact(['users']));
+        $users = User::where('confirmed', '>=', '1')->get();
+        return view('admin.mail_many', compact(['users']));
     }
 
     public function oneMailView($id)
     {
         $user = User::find($id);
-        return view('admin.mail_one',compact(['user']));
+        return view('admin.mail_one', compact(['user']));
     }
 
     public function processMailToUsers(Request $request, $type)
     {
 
 
-        if($type == 0)
-        {
-            $sendMail = $this->sendMailToOneUser($request->user_id,$request->mail_subject, $request->mail_content);
-            if($sendMail) {
+        if ($type == 0) {
+            $sendMail = $this->sendMailToOneUser($request->user_id, $request->mail_subject, $request->mail_content);
+            if ($sendMail) {
                 Session::flash('mail', 'Mail sent successfully');
                 return redirect(url('user/' . $request->user_id));
-            }
-            else {
+            } else {
                 Session::flash('mail', 'Error sending mail');
                 return redirect(url('admin/mail/one/' . $request->user_id));
             }
-        }
-        else
-        {
+        } else {
             $sendMail = $this->sendMailToManyUsers($request->users, $request->mail_subject, $request->mail_content);
-            if($sendMail) {
+            if ($sendMail) {
                 Session::flash('mail', 'Mail sent successfully');
                 return redirect(url('admin/'));
-            }
-            else {
+            } else {
                 Session::flash('mail', 'Error sending mail');
                 return redirect(url('admin/mail/many/'));
             }
@@ -207,12 +204,11 @@ class AdminController extends Controller
     {
         $user = User::find($user_id);
 
-        $sendMail = Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => $user->first_name], function($message) use ($user,$mail_subject,$mail_content) {
+        $sendMail = Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => $user->first_name], function ($message) use ($user, $mail_subject, $mail_content) {
             $message->to($user->email, $user->first_name)
                 ->subject($mail_subject);
         });
-        if($sendMail)
-        {
+        if ($sendMail) {
             $this->saveMail([$user_id], $mail_subject, $mail_content);
         }
 
@@ -225,19 +221,17 @@ class AdminController extends Controller
     {
 
         $usersEmails = [];
-        foreach($users as $user)
-        {
+        foreach ($users as $user) {
             $usersEmails[] = User::find($user)->email;
         }
 
 
-        $sendMail = Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => 'awesome AskaFellow member'], function($message) use ($usersEmails,$mail_subject,$mail_content) {
+        $sendMail = Mail::send('admin.emails.general', ['mail_content' => $mail_content, 'name' => 'awesome AskaFellow member'], function ($message) use ($usersEmails, $mail_subject, $mail_content) {
             $message->to([])->bcc($usersEmails)
                 ->subject($mail_subject);
         });
 
-        if($sendMail)
-        {
+        if ($sendMail) {
             $this->saveMail($users, $mail_subject, $mail_content);
         }
 
@@ -260,43 +254,48 @@ class AdminController extends Controller
 
     public function showMailLog()
     {
-        $mails = AdminMail::orderBy('created_at','desc')->get();
-        return view('admin.mail_log',compact(['mails']));
+        $mails = AdminMail::orderBy('created_at', 'desc')->get();
+        return view('admin.mail_log', compact(['mails']));
     }
 
 
     public function listUsers()
     {
-        $users = User::orderBy('first_name','asc');
-        return view('admin.users',compact(['users']));
+        $users = User::orderBy('first_name', 'asc');
+        return view('admin.users', compact(['users']));
     }
-    
-    public function add_badge(){
-        $users = User::orderBy('first_name','asc');
-        return view('admin.badge',compact(['users']));
+
+    public function add_badge()
+    {
+        $users = User::orderBy('first_name', 'asc');
+        return view('admin.badge', compact(['users']));
     }
-    public function save_badge($id){
+
+    public function save_badge($id)
+    {
         $user = User::findOrFail($id);
-        $user->verified_badge=1;
+        $user->verified_badge = 1;
         $user->save();
-        $users = User::orderBy('first_name','asc');
-        return view('admin.badge',compact(['users']));
+        $users = User::orderBy('first_name', 'asc');
+        return view('admin.badge', compact(['users']));
     }
-    public function remove_badge($id){
+
+    public function remove_badge($id)
+    {
         $user = User::findOrFail($id);
-        $user->verified_badge=0;
+        $user->verified_badge = 0;
         $user->save();
-        $users = User::orderBy('first_name','asc');
-        return view('admin.badge',compact(['users']));
+        $users = User::orderBy('first_name', 'asc');
+        return view('admin.badge', compact(['users']));
     }
 
-
-
-
-
-
-
-
+    public function statistics()
+    {
+        $questions = Question::all()->count();
+        $answers = Answer::all()->count();
+        $users = User::all()->count();
+        return view('admin.statistics', compact(['questions', 'answers', 'users']));
+    }
 
 
 }

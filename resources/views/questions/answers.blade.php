@@ -46,17 +46,17 @@
                     @endif
                 </a>
                 @if(Auth::user())
-                    <a class="vote" title="upvote" style="color:green;"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                    <a class="upvote_question vote" value="{{$question->id}}" title="upvote" style="color:green;"><span class="glyphicon glyphicon-thumbs-up"></span></a>
                 @endif
                 @if($question->votes > 0)
-                    <span style="color:green;">{{$question->votes}} </span>
+                    <span class="question_votes" style="color:green;">{{$question->votes}} </span>
                 @elseif($question->votes == 0)
-                    <span style="">{{$question->votes}} </span>
+                    <span class="question_votes" style="">{{$question->votes}} </span>
                 @else
-                    <span style="color:red;">{{$question->votes}} </span>
+                    <span class="question_votes" style="color:red;">{{$question->votes}} </span>
                 @endif
                 @if(Auth::user())
-                    <a class="vote" title="downvote"  style="color:red"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                    <a class="downvote_question vote" value="{{$question->id}}"  title="downvote"  style="color:red"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                 @endif
             </div>
             <div class="media-body">
@@ -362,6 +362,31 @@
                 'url' : "{{url('')}}/vote/answer/"+answer_id+"/"+type,
                 success: function(data){
                     answer.parent().find('.answer_votes').html(data);
+                }
+            });
+        });
+
+        $('.upvote_question').click(function () {
+            var question_id = $(this).attr('value');
+            var type = 0;
+            var question = $(this);
+            $.ajax({
+                'url': "{{url('')}}/vote/question/" + question_id + "/" + type,
+                success: function (data) {
+                    question.parent().find('.question_votes').html(data);
+                }
+            });
+        });
+
+        $('.downvote_question').click(function () {
+            var question_id = $(this).attr('value');
+            var type = 1;
+            var question = $(this);
+            $.ajax({
+                'url': "{{url('')}}/vote/question/" + question_id + "/" + type,
+                success: function (data) {
+                    console.log(data);
+                    question.parent().find('.question_votes').html(data);
                 }
             });
         });

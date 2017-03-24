@@ -61,6 +61,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/admin/mail/one/{id}', 'AdminController@oneMailView');
     Route::get('/admin/users', 'AdminController@listUsers');
     Route::get('/admin/mail/log', 'AdminController@showMailLog');
+    Route::get('/admin/statistics','AdminController@statistics');
     Route::post('/mail/{type}', 'AdminController@processMailToUsers');
 
 
@@ -161,6 +162,10 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['cors']], function () {
      *  Post a question
      */
     Route::post('/browse/{course_id}', 'ApiController@post_question');
+    /*
+     *  Post an answer
+     */
+    Route::post('/answers/{question_id}', 'ApiController@post_answer');
     /*
      * Home page data
      */

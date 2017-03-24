@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /*
  * This file is part of jwt-auth.
@@ -98,7 +98,7 @@ return [
     |
     */
 
-    'required_claims' => ['iss', 'iat', 'exp', 'nbf', 'sub', 'jti'],
+    'required_claims' => ['iss', 'iat', 'exp', 'nbf', 'jti'],
 
     /*
     |--------------------------------------------------------------------------
