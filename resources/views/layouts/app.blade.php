@@ -30,9 +30,13 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="{{url('/home')}}">Home</a></li>
                 <!-- <li class="link-separator"><a>|</a></li> -->
+
                 <li><a href="{{url('/about')}}">About</a></li>
                 <!-- <li class="link-separator"><a>|</a></li> -->
                 <li><a href="{{url('/howitworks')}}">How it works</a></li>
+                <li>
+                    <a href="{{url('/subscriptions')}}">Subscribe</a>
+                </li>
             </ul>
             <form style="width:30%; color:black;" method="get" action="" class="navbar-form navbar-left" role="search">
                 <select name="quick_select" id="states" style="width:80%; color:black;">

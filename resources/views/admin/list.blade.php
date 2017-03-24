@@ -53,6 +53,11 @@
                     <a href="{{url('admin/add_badge')}}">Add Verification Badge to the users</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="{{url('admin/statistics')}}">Site statistics</a>
+                </td>
+            </tr>
 
         </table>
     </div>

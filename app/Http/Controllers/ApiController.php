@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Course;
 use App\Major;
+use App\Notification;
 use App\Question;
 use App\QuestionVote;
 use App\User;
@@ -18,7 +20,7 @@ class ApiController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['only' => [
-            'vote_question', 'post_question','home'
+            'vote_question', 'post_question','home','post_answer'
         ]]);
     }
 
@@ -107,7 +109,25 @@ class ApiController extends Controller
         $question->question = $request->question;
         $question->course_id = $course_id;
         $question->save();
-        return ['state' => '200 ok', 'error' => false];
+        return ['state' => '200 ok', 'error' => false,'data'=>$question];
+    }
+
+    public function post_answer(Request $request,$question_id)
+    {
+        $this->validate($request, [
+                'answer' => 'required|min:5',
+        ]);
+        $answer = new Answer();
+        $answer->answer = $request->answer;
+        $answer->responder_id = Auth::user()->id;
+        $answer->question_id = $question_id;
+        $answer->save();
+
+        $asker_id = Question::find($question_id)->asker_id;
+        $description = Auth::user()->first_name.' '.Auth::user()->last_name.' posted an answer to your question.';
+        $link = url('/answers/'.$question_id);
+        Notification::send_notification($asker_id,$description,$link);
+        return ['state' => '200 ok', 'error' => false,'data'=>$answer];
     }
 
     public function home()
@@ -122,8 +142,6 @@ class ApiController extends Controller
             $question['asker'] = $question->asker()->get();
             $question['count_answers'] = $question->answers()->get()->count();
         }
-
-
         $questions->setPath('http://localhost:8000/api/v1/');
        return $questions;
     }
