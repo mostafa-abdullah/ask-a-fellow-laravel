@@ -58,15 +58,10 @@ $pages = ceil($count_questions/$take);
                     <a href="{{url('user/'.$question->asker_id)}}">
                         @if($question->asker->profile_picture)
                             <img class="media-object" src="{{asset($question->asker->profile_picture)}}" alt="...">
-                            @if($question->asker->verified_badge >=1)
-                                <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
 
-                            @endif
                         @else
                             <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
-                            @if($question->asker->verified_badge >=1)
-                                <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
-                            @endif
+
                         @endif
                     </a>
                     @if(Auth::user())
@@ -84,7 +79,11 @@ $pages = ceil($count_questions/$take);
                     @endif
                 </div>
                 <div class="media-body" style="">
-                    <h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3>
+                    @if($question->asker->verified_badge >=1)
+                        <h3>{{$question->asker->first_name.' '.$question->asker->last_name}}<span class="verified"></span></h3>
+                    @else
+                        <h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3>
+                    @endif
                     <h5 style="color:green">{{$question->course->course_name}}</h5>
                     <div class="question_text">
                         {{$question->question}}
@@ -98,22 +97,22 @@ $pages = ceil($count_questions/$take);
 
                                     @if($question->answers()->orderBy('answers.votes','desc')->first()->responder->profile_picture)
                                         <img class="media-object" src="{{asset($question->answers()->orderBy('answers.votes','desc')->first()->responder->profile_picture)}}" alt="...">
-                                    @if($question->answers()->orderBy('answers.votes','desc')->first()->responder->verified_badge >= 1)
-                                              <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
-                                        @endif
+
                                     @else
                                         <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
                                         @if($question->answers()->orderBy('answers.votes','desc')->first()->responder->verified_badge >= 1)
 
-                                            <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
 
                                         @endif
                                     @endif
                                 </a>
                             </div>
                             <div class="media-body">
-
-                                <h3>{{$question->answers()->orderBy('answers.votes','desc')->first()->responder->first_name.' '.$question->answers()->orderBy('answers.votes','desc')->first()->responder->last_name}} <span class="pull-right label label-success">Top Answer</span></h3>
+                                @if($question->answers()->orderBy('answers.votes','desc')->first()->responder->verified_badge >= 1)
+                                    <h3>{{$question->answers()->orderBy('answers.votes','desc')->first()->responder->first_name.' '.$question->answers()->orderBy('answers.votes','desc')->first()->responder->last_name}}<span class="verified"></span> <span class="pull-right label label-success">Top Answer</span></h3>
+                                @else
+                                    <h3>{{$question->answers()->orderBy('answers.votes','desc')->first()->responder->first_name.' '.$question->answers()->orderBy('answers.votes','desc')->first()->responder->last_name}} <span class="pull-right label label-success ">Top Answer</span></h3>
+                                @endif
 
                                 <div class="answer_text">
                                     {{$question->answers()->orderBy('answers.votes','desc')->first()->answer}}
@@ -247,6 +246,16 @@ $pages = ceil($count_questions/$take);
                min-width: 300px;
                width: 90%;
            }
+
+        }
+        span.verified{
+            display: inline-block;
+            vertical-align: middle;
+            height: 40px;
+            width: 40px;
+            background-image: url("{{asset('art/ver.png')}}");
+            background-repeat: no-repeat;
+            z-index: 200000;
 
         }
     </style>
