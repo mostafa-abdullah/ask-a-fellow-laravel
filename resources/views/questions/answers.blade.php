@@ -34,15 +34,10 @@
 
                     @if($question->asker->profile_picture)
                         <img class="media-object" src="{{asset($question->asker->profile_picture)}}" alt="...">
-                        @if($question->asker->verified_badge >=1)
-                            <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
 
-                        @endif
                     @else
                         <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
-                        @if($question->asker->verified_badge >=1)
-                            <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
-                        @endif
+
                     @endif
                 </a>
                 @if(Auth::user())
@@ -65,7 +60,11 @@
                     <a onclick="return confirm('Are you sure?');" title="Delete question" class="" href="{{url('delete_question/'.$question->id)}}"><span style="color:#FFAF6C" class="glyphicon glyphicon-remove"></span></a>
                 </div>
                 @endif
-                <a href="{{url('user/'.$question->asker_id)}}"><h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3></a>
+                    @if($question->asker->verified_badge >=1)
+                        <a href="{{url('user/'.$question->asker_id)}}"><h3>{{$question->asker->first_name.' '.$question->asker->last_name}} <span class="verified"></span></h3></a>
+                    @else
+                        <a href="{{url('user/'.$question->asker_id)}}"><h3>{{$question->asker->first_name.' '.$question->asker->last_name}} </h3></a>
+                    @endif
                 <div class="question_text">
                     {{$question->question}}
                 </div>
@@ -95,14 +94,8 @@
 
                             @if($answer->responder->profile_picture)
                                 <img class="media-object" src="{{asset($answer->responder->profile_picture)}}" alt="...">
-                                @if($answer->responder->verified_badge >=1)
-                                    <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
-                                @endif
                             @else
                                 <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
-                                @if($answer->responder->verified_badge >=1)
-                                    <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
-                                @endif
                             @endif
                         </a>
                         @if(Auth::user())
@@ -130,7 +123,12 @@
                             <a value="{{$answer->id}}" data-toggle="modal" data-target="#report_modal" class="report_answer" title="Report answer"><span style="color:#D24848;cursor:pointer;" class="glyphicon glyphicon-ban-circle"></span></a>
                             </div>
                         @endif
-                        <h3>{{$answer->responder->first_name.' '.$answer->responder->last_name}}</h3>
+                            @if($answer->responder->verified_badge >=1)
+                                <h3>{{$answer->responder->first_name.' '.$answer->responder->last_name}}<span class="verified"></span></h3>
+                             @else
+                                <h3>{{$answer->responder->first_name.' '.$answer->responder->last_name}}</h3>
+                            @endif
+
                         <div class="answer_text">
                             {{$answer->answer}}
                         </div>
@@ -301,6 +299,16 @@
 
 
 
+
+        }
+        span.verified{
+            display: inline-block;
+            vertical-align: middle;
+            height: 40px;
+            width: 40px;
+            background-image: url("{{asset('art/ver.png')}}");
+            background-repeat: no-repeat;
+            z-index: 200000;
 
         }
 

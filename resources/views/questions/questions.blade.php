@@ -75,15 +75,9 @@ if (isset($_GET['sort']))
 
                             @if($question->asker->profile_picture)
                                 <img class="media-object" src="{{asset($question->asker->profile_picture)}}" alt="...">
-                                @if($question->asker->verified_badge >=1)
-                                    <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
 
-                                @endif
                             @else
                                 <img class="media-object" src="{{asset('art/default_pp.png')}}" alt="...">
-                                @if($question->asker->verified_badge >=1)
-                                    <span class="notify-badge"><img src="{{asset('art/verify.png')}}"></span>
-                                @endif
                             @endif
                         </a>
                         @if(Auth::user())
@@ -117,7 +111,11 @@ if (isset($_GET['sort']))
                                                                                          class="glyphicon glyphicon-ban-circle"></span></a>
                             </div>
                         @endif
-                        <h3>{{$question->asker->first_name.' '.$question->asker->last_name}}</h3>
+                            @if($question->asker->verified_badge >=1)
+                                <h3>{{$question->asker->first_name.' '.$question->asker->last_name}} <span class="verified"></span></h3>
+                            @else
+                                <h3>{{$question->asker->first_name.' '.$question->asker->last_name}} </h3>
+                            @endif
                         @if(isset($all))
                             <h5 style="color:green">{{$question->course->course_code}}</h5>
                         @endif
@@ -296,6 +294,16 @@ if (isset($_GET['sort']))
                 min-width: 300px;
                 width: 90%;
             }
+
+        }
+        span.verified{
+            display: inline-block;
+            vertical-align: middle;
+            height: 40px;
+            width: 40px;
+            background-image: url("{{asset('art/ver.png')}}");
+            background-repeat: no-repeat;
+            z-index: 200000;
 
         }
 
