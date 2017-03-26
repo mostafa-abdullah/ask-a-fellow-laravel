@@ -24,7 +24,12 @@
             @endif
 
         </div>
-        <h1>{{$user->first_name.' '.$user->last_name}}</h1>
+            @if($user->verified_badge >=1)
+                <h1>{{$user->first_name.' '.$user->last_name}}  <span class="verified"></span></h1>
+            @else
+                <h1>{{$user->first_name.' '.$user->last_name}}  </h1>
+            @endif
+
         <a href="#" style="color:#0057A2">{{$user->email}}</a>
         <p style="font-size: 20px;">{{$user->semester?'Semester '.$user->semester:''}}<br> {{$user->major?$user->major->major:''}}</p>
         <p>{{$user->bio}}</p>
@@ -164,6 +169,16 @@
                 font-size: 18px;
             }
 
+
+        }
+        span.verified{
+            display: inline-block;
+            vertical-align: middle;
+            height: 40px;
+            width: 40px;
+            background-image: url("{{asset('art/ver.png')}}");
+            background-repeat: no-repeat;
+            z-index: 200000;
 
         }
 
