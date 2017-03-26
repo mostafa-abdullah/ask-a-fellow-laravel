@@ -30,7 +30,7 @@ $users = $users->skip($page * $take)->take($take)->get();
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading"><a
-                                href="{{url('user/'.$user->id)}}">{{$user->first_name.' '.$user->last_name}}</a>
+                                href="{{url('user/'.$user->id)}}">{{$user->first_name.' '.$user->last_name}}  {{$user->email}}</a>
                     </h4>
                     @if($user->verified_badge ==0)
                     <form method="post" action="{{url('admin/add_badge/'.$user->id)}}">
