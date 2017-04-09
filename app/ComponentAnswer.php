@@ -17,6 +17,6 @@ class ComponentAnswer extends Model
 
     public function question()
     {
-        return $th0s->belongsTo('App\ComponentQuestion');
+        return $this->belongsTo('App\ComponentQuestion');
     }
 }
