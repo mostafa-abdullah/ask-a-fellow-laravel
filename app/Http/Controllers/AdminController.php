@@ -300,8 +300,30 @@ class AdminController extends Controller
 
     public function eventRequests()
     {
-        $requests = Event::whereIn('verified','false');
-        return view('admin.event_requests', compact(['requests']));
+        $requests = Event::all()->where('verified',0);
+        return view('admin.event_requests')->with('requests',$requests);
+    }
+
+    public function viewRequest($id)
+    {
+        $event = Event::find($id);
+        $creator = User::find($event->creator_id);
+        return view('admin.event', compact(['event', 'creator']));
+    }
+
+    public function rejectRequest($id)
+    {
+        $event = Event::find($id);
+        $event-> delete();
+        return redirect('admin/event_requests');
+    }
+
+    public function acceptRequest($id)
+    {
+        $event =  Event::Find($id);
+        $event->verified= 1;
+        $event->save();
+        return redirect('admin/event_requests');
     }
 
 

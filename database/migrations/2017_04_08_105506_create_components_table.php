@@ -20,12 +20,12 @@ class CreateComponentsTable extends Migration
             $table->text('price');
             $table->string('image_path');
             $table->boolean('accepted');
-            $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('components_categories')->onDelete('cascade');
-            $table->integer('creator_id')->unsigned();
-            $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
+            $table->integer('creator_id')->unsigned()->index();
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('category_id')->unsigned()->index();
+            $table->foreign('category_id')->references('id')->on('components_categories')->onDelete('cascade');
         });
     }
 

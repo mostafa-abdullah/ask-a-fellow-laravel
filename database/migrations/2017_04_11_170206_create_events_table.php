@@ -18,7 +18,7 @@ class CreateEventsTable extends Migration
             $table->text('description');
             $table->date('date');
             $table->text('place');
-            $table->boolean('verified')->default('false');
+            $table->boolean('verified')->default(false);
             $table->integer('creator_id')->unsigned();
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
