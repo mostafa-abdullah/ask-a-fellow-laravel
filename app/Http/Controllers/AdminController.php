@@ -13,6 +13,7 @@ use App\Http\Requests;
 use App\Major;
 use App\Course;
 use App\User;
+use App\Event;
 use App\AdminMail;
 use Mail;
 use Session;
@@ -295,6 +296,12 @@ class AdminController extends Controller
         $answers = Answer::all()->count();
         $users = User::all()->count();
         return view('admin.statistics', compact(['questions', 'answers', 'users']));
+    }
+
+    public function eventRequests()
+    {
+        $requests = Event::whereIn('verified','false');
+        return view('admin.event_requests', compact(['requests']));
     }
 
 

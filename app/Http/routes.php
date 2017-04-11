@@ -62,6 +62,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/admin/users', 'AdminController@listUsers');
     Route::get('/admin/mail/log', 'AdminController@showMailLog');
     Route::get('/admin/statistics','AdminController@statistics');
+    Route::get('/admin/event_requests','AdminController@eventRequests');
     Route::post('/mail/{type}', 'AdminController@processMailToUsers');
 
 
